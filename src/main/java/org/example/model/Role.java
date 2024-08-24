@@ -23,7 +23,7 @@ public class Role {
     private int id;
 
     @Size(min = 4, max = 11)
-    @Column(name = "role_name", unique = true)
+    @Column(name = "role_name")
     private String name;
 
     @OneToMany(mappedBy = "role")

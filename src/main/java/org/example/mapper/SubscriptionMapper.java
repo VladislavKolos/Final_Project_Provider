@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring", uses = {UserMapper.class, PlanMapper.class})
 public interface SubscriptionMapper {
 
-    @Mapping(source = "user.id", target = "user.id")
-    @Mapping(source = "plan.id", target = "plan.id")
+    @Mapping(source = "user", target = "user")
+    @Mapping(source = "plan", target = "plan")
     SubscriptionResponseDTO toSubscriptionResponseDTO(Subscription subscription);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(source = "user.id", target = "user.id")
-    @Mapping(source = "plan.id", target = "plan.id")
+    @Mapping(source = "userId", target = "user.id")
+    @Mapping(source = "planId", target = "plan.id")
     Subscription toSubscriptionForCreate(SubscriptionRequestDTO subscriptionRequestDTO);
 }

@@ -11,10 +11,14 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring", uses = {TariffMapper.class})
 public interface PlanMapper {
 
-    @Mapping(source = "tariff.id", target = "tariff.id")
+    @Mapping(source = "tariff", target = "tariff")
+    @Mapping(source = "startDate", target = "startDate", dateFormat = "yyyy-MM-dd")
+    @Mapping(source = "endDate", target = "endDate", dateFormat = "yyyy-MM-dd")
     PlanResponseDTO toPlanResponseDTO(Plan plan);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(source = "tariff.id", target = "tariff.id")
+    @Mapping(source = "tariffId", target = "tariff.id")
+    @Mapping(source = "startDate", target = "startDate", dateFormat = "yyyy-MM-dd")
+    @Mapping(source = "endDate", target = "endDate", dateFormat = "yyyy-MM-dd")
     Plan toPlanForCreate(PlanRequestDTO planRequestDTO);
 }

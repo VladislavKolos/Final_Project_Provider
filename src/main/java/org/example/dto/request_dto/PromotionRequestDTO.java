@@ -17,6 +17,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PromotionRequestDTO {
 
+    private int id;
+
     @NotBlank
     @Size(max = 100)
     private String title;

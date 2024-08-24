@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
+
     RoleResponseDTO toRoleResponseDTO(Role role);
 
     @Mapping(target = "id", ignore = true)

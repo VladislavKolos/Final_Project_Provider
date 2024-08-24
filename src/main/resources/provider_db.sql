@@ -3,7 +3,7 @@ CREATE DATABASE "provider_db";
 CREATE TABLE "role"
 (
     role_id   SERIAL PRIMARY KEY,
-    role_name VARCHAR(50) UNIQUE NOT NULL
+    role_name VARCHAR(50) NOT NULL DEFAULT 'ROLE_CLIENT'
 );
 
 CREATE TABLE "tariff"

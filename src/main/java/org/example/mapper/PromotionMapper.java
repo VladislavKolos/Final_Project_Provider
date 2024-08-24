@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 public interface PromotionMapper {
 
+    @Mapping(source = "startDate", target = "startDate", dateFormat = "yyyy-MM-dd")
+    @Mapping(source = "endDate", target = "endDate", dateFormat = "yyyy-MM-dd")
     PromotionResponseDTO toPromotionResponseDTO(Promotion promotion);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(source = "startDate", target = "startDate", dateFormat = "yyyy-MM-dd")
+    @Mapping(source = "endDate", target = "endDate", dateFormat = "yyyy-MM-dd")
     Promotion toPromotionForCreate(PromotionRequestDTO promotionRequestDTO);
 }

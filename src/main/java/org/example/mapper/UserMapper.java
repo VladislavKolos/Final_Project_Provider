@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring", uses = {RoleMapper.class})
 public interface UserMapper {
 
-    @Mapping(source = "role.id", target = "role.id")
+    @Mapping(source = "role", target = "role")
     UserResponseDTO toUserResponseDTO(User user);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(source = "role.id", target = "role.id")
+    @Mapping(source = "roleId", target = "role.id")
     User toUserForCreate(UserRequestDTO userRequestDTO);
 }
