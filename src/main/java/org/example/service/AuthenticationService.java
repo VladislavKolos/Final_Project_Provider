@@ -2,11 +2,11 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.dto.request_dto.AuthenticationRequestDTO;
-import org.example.dto.request_dto.RegisterRequestDTO;
-import org.example.dto.response_dto.AuthenticationResponseDTO;
+import org.example.dto.requestdto.AuthenticationRequestDTO;
+import org.example.dto.requestdto.RegisterRequestDTO;
+import org.example.dto.responsedto.AuthenticationResponseDTO;
 import org.example.model.User;
-import org.example.repository.UserRepository;
+import org.example.repository.RoleRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
+
+    private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -28,15 +30,20 @@ public class AuthenticationService {
 
     @Transactional
     public AuthenticationResponseDTO register(RegisterRequestDTO request) {
-        var user = User.builder()
+        User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
                 .phone(request.getPhone())
+                .status("active")
+                .role(roleRepository.findById(2).orElseThrow(() -> {
+                    log.error("Role not found");
+                    return new RuntimeException("Role not found");
+                }))
                 .build();
 
-        userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        userService.save(user);
+        String jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponseDTO.builder()
                 .token(jwtToken)
@@ -49,10 +56,10 @@ public class AuthenticationService {
                 request.getUsername(),
                 request.getPassword()));
 
-        var user = userRepository.findByUsername(request.getUsername())
+        User user = userService.getUserByUsername(request.getUsername())
                 .orElseThrow();
 
-        var jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponseDTO.builder()
                 .token(jwtToken)

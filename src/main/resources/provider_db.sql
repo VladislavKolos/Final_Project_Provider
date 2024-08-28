@@ -24,7 +24,7 @@ CREATE TABLE "user"
     "password" VARCHAR(256)        NOT NULL,
     email      VARCHAR(256) UNIQUE NOT NULL,
     phone      VARCHAR(18) UNIQUE  NOT NULL,
-    role_id    INT                 REFERENCES "role" (role_id) ON DELETE SET NULL,
+    role_id    INT                 REFERENCES "role" (role_id) ON DELETE SET NULL DEFAULT 2,
     status     VARCHAR(20) DEFAULT 'active'
 );
 
@@ -71,3 +71,9 @@ CREATE INDEX idx_email ON "user" (email);
 CREATE INDEX idx_plan_name ON plan (plan_name);
 
 CREATE INDEX idx_tariff_name ON tariff (tariff_name);
+
+INSERT INTO "role" (role_name) VALUES ('ROLE_ADMIN');
+
+INSERT INTO "role" (role_name)
+SELECT 'ROLE_CLIENT'
+WHERE NOT EXISTS (SELECT 1 FROM "role" WHERE role_name = 'ROLE_CLIENT');

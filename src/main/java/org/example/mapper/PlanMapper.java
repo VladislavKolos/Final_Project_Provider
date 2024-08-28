@@ -1,7 +1,7 @@
 package org.example.mapper;
 
-import org.example.dto.request_dto.PlanRequestDTO;
-import org.example.dto.response_dto.PlanResponseDTO;
+import org.example.dto.requestdto.PlanRequestDTO;
+import org.example.dto.responsedto.PlanResponseDTO;
 import org.example.model.Plan;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

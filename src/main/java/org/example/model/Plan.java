@@ -43,7 +43,4 @@ public class Plan {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tariff_id")
     private Tariff tariff;
-
-    @OneToMany(mappedBy = "plan")
-    private List<Subscription> subscriptions;
 }

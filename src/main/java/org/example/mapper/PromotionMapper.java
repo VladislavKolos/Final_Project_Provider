@@ -1,7 +1,7 @@
 package org.example.mapper;
 
-import org.example.dto.request_dto.PromotionRequestDTO;
-import org.example.dto.response_dto.PromotionResponseDTO;
+import org.example.dto.requestdto.PromotionRequestDTO;
+import org.example.dto.responsedto.PromotionResponseDTO;
 import org.example.model.Promotion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

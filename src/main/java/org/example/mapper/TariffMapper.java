@@ -1,7 +1,7 @@
 package org.example.mapper;
 
-import org.example.dto.request_dto.TariffRequestDTO;
-import org.example.dto.response_dto.TariffResponseDTO;
+import org.example.dto.requestdto.TariffRequestDTO;
+import org.example.dto.responsedto.TariffResponseDTO;
 import org.example.model.Tariff;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

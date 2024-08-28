@@ -1,4 +1,4 @@
-package org.example.dto.response_dto;
+package org.example.dto.responsedto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubscriptionResponseDTO {
+public class UserResponseDTO {
     private int id;
+    private String username;
+    private String email;
+    private String phone;
     private String status;
-    private UserResponseDTO user;
-    private PlanResponseDTO plan;
+    private RoleResponseDTO role;
+
 }

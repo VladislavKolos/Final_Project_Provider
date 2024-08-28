@@ -1,7 +1,7 @@
 package org.example.mapper;
 
-import org.example.dto.request_dto.SubscriptionRequestDTO;
-import org.example.dto.response_dto.SubscriptionResponseDTO;
+import org.example.dto.requestdto.SubscriptionRequestDTO;
+import org.example.dto.responsedto.SubscriptionResponseDTO;
 import org.example.model.Subscription;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

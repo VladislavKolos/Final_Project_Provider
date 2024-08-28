@@ -25,7 +25,4 @@ public class Role {
     @Size(min = 4, max = 11)
     @Column(name = "role_name")
     private String name;
-
-    @OneToMany(mappedBy = "role")
-    private List<User> users;
 }
