@@ -1,6 +1,6 @@
 package org.example.mapper;
 
-import org.example.dto.requestdto.TariffRequestDTO;
+import org.example.dto.requestdto.CreateTariffRequestDTO;
 import org.example.dto.responsedto.TariffResponseDTO;
 import org.example.model.Tariff;
 import org.mapstruct.Mapper;
@@ -13,5 +13,5 @@ public interface TariffMapper {
     TariffResponseDTO toTariffResponseDTO(Tariff tariff);
 
     @Mapping(target = "id", ignore = true)
-    Tariff toTariffForCreate(TariffRequestDTO tariffRequestDTO);
+    Tariff toTariffForCreate(CreateTariffRequestDTO tariffRequestDTO);
 }

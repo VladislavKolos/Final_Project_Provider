@@ -2,13 +2,9 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "plan",
@@ -17,6 +13,7 @@ import java.util.List;
         })
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Plan {

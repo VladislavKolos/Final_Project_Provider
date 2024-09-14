@@ -14,7 +14,7 @@ public class UserResponseDTO {
     private String username;
     private String email;
     private String phone;
-    private String status;
     private RoleResponseDTO role;
+    private StatusResponseDTO status;
 
 }

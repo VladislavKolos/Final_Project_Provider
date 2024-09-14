@@ -7,24 +7,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlanRequestDTO {
+public class PasswordChangeRequestDTO {
 
     @NotBlank
-    @Size(min = 1, max = 50)
-    private String name;
+    @Size(min = 8, max = 256)
+    private String oldPassword;
 
-    @Size(max = 50)
-    private String description;
+    @NotBlank
+    @Size(min = 8, max = 256)
+    private String newPassword;
 
-    private LocalDate startDate;
-
-    private LocalDate endDate;
-
-    private int tariffId;
+    @NotBlank
+    @Size(min = 8, max = 256)
+    private String confirmNewPassword;
 }

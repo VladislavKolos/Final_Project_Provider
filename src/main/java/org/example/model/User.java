@@ -45,16 +45,19 @@ public class User implements UserDetails {
     @Column(name = "phone", unique = true)
     private String phone;
 
-    @Size(min = 6, max = 8)
-    @Column(name = "status")
-    private String status;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private Status status;
+
     @OneToMany(mappedBy = "user")
     private List<Subscription> subscriptions;
+
+    @OneToMany(mappedBy = "user")
+    private List<EmailToken> emailTokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

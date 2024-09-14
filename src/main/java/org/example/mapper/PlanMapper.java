@@ -1,6 +1,6 @@
 package org.example.mapper;
 
-import org.example.dto.requestdto.PlanRequestDTO;
+import org.example.dto.requestdto.CreatePlanRequestDTO;
 import org.example.dto.responsedto.PlanResponseDTO;
 import org.example.model.Plan;
 import org.mapstruct.Mapper;
@@ -20,5 +20,5 @@ public interface PlanMapper {
     @Mapping(source = "tariffId", target = "tariff.id")
     @Mapping(source = "startDate", target = "startDate", dateFormat = "yyyy-MM-dd")
     @Mapping(source = "endDate", target = "endDate", dateFormat = "yyyy-MM-dd")
-    Plan toPlanForCreate(PlanRequestDTO planRequestDTO);
+    Plan toPlanForCreate(CreatePlanRequestDTO planRequestDTO);
 }

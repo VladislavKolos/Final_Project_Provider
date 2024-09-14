@@ -6,6 +6,21 @@ CREATE TABLE "role"
     role_name VARCHAR(50) NOT NULL DEFAULT 'ROLE_CLIENT'
 );
 
+INSERT INTO "role" (role_name)
+VALUES ('ROLE_ADMIN'),
+       ('ROLE_CLIENT');
+
+CREATE TABLE "status"
+(
+    status_id   SERIAL PRIMARY KEY,
+    status_name VARCHAR(50) NOT NULL DEFAULT 'active'
+);
+
+INSERT INTO "status" (status_name)
+VALUES ('active'),
+       ('inactive'),
+       ('banned');
+
 CREATE TABLE "tariff"
 (
     tariff_id    SERIAL PRIMARY KEY,
@@ -24,8 +39,16 @@ CREATE TABLE "user"
     "password" VARCHAR(256)        NOT NULL,
     email      VARCHAR(256) UNIQUE NOT NULL,
     phone      VARCHAR(18) UNIQUE  NOT NULL,
-    role_id    INT                 REFERENCES "role" (role_id) ON DELETE SET NULL DEFAULT 2,
-    status     VARCHAR(20) DEFAULT 'active'
+    role_id    INT                 REFERENCES "role" (role_id) ON DELETE SET NULL     DEFAULT 2,
+    status_id  INT                 REFERENCES "status" (status_id) ON DELETE SET NULL DEFAULT 1
+);
+
+CREATE TABLE email_token
+(
+    email_token_id SERIAL PRIMARY KEY,
+    token          VARCHAR(256) NOT NULL UNIQUE,
+    expiry_date    TIMESTAMP    NOT NULL,
+    user_id        INT REFERENCES "user" (user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE "plan"
@@ -72,7 +95,8 @@ CREATE INDEX idx_plan_name ON plan (plan_name);
 
 CREATE INDEX idx_tariff_name ON tariff (tariff_name);
 
-INSERT INTO "role" (role_name) VALUES ('ROLE_ADMIN');
+INSERT INTO "role" (role_name)
+VALUES ('ROLE_ADMIN');
 
 INSERT INTO "role" (role_name)
 SELECT 'ROLE_CLIENT'

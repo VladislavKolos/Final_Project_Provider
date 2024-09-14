@@ -51,4 +51,7 @@ public class Tariff {
     @Column(name = "voice_limit")
     private double voiceLimit;
 
+    @OneToMany(mappedBy = "tariff")
+    private List<Plan> plans;
+
 }

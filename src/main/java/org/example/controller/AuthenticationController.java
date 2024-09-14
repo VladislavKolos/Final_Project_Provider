@@ -1,16 +1,15 @@
 package org.example.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.AuthenticationRequestDTO;
 import org.example.dto.requestdto.RegisterRequestDTO;
 import org.example.dto.responsedto.AuthenticationResponseDTO;
 import org.example.service.AuthenticationService;
+import org.example.service.JwtBlacklistService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -20,8 +19,10 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
+    private final JwtBlacklistService blacklistService;
+
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponseDTO> register(@RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<AuthenticationResponseDTO> register(@Valid @RequestBody RegisterRequestDTO request) {
         AuthenticationResponseDTO authResponseDTO = service.register(request);
 
         log.info("User successfully registered");
@@ -30,7 +31,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponseDTO> authenticate(@RequestBody AuthenticationRequestDTO request) {
+    public ResponseEntity<AuthenticationResponseDTO> authenticate(@Valid @RequestBody AuthenticationRequestDTO request) {
         AuthenticationResponseDTO authResponseDTO = service.authenticate(request);
 
         log.info("User successfully authenticated");
@@ -38,4 +39,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(authResponseDTO);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String token) {
+        String tokenValue = token.substring(7);
+
+        blacklistService.blacklistToken(tokenValue);
+
+        return ResponseEntity.noContent().build();
+    }
 }

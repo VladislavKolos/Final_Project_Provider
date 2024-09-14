@@ -1,10 +1,14 @@
 package org.example.dto.requestdto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.annotation.customannotation.NoExistTariffName;
 
 import java.math.BigDecimal;
 
@@ -12,9 +16,9 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TariffRequestDTO {
+public class UpdateTariffRequestDTO {
 
-    @NotBlank
+    @NoExistTariffName
     @Size(min = 2, max = 50)
     private String name;
 

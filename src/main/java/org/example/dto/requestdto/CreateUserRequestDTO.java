@@ -3,16 +3,14 @@ package org.example.dto.requestdto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequestDTO {
+public class CreateUserRequestDTO {
 
     @NotBlank
     @Size(min = 3, max = 32)
@@ -29,8 +27,8 @@ public class UserRequestDTO {
     @Size(min = 10, max = 18)
     private String phone;
 
-    @Size(min = 6, max = 8)
-    private String status;
-
     private int roleId;
+
+    private int statusId;
+
 }
