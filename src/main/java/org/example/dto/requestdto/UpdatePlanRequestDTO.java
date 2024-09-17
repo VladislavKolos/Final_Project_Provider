@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.annotation.customannotation.ExistTariffId;
 import org.example.annotation.customannotation.NoExistPlanName;
 
 import java.time.LocalDate;
@@ -27,7 +26,6 @@ public class UpdatePlanRequestDTO {
 
     private LocalDate endDate;
 
-    @ExistTariffId
     private int tariffId;
 }
 

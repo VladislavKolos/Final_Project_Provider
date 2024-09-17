@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.annotation.customannotation.ExistRoleId;
 import org.example.dto.requestdto.RoleRequestDTO;
 import org.example.dto.responsedto.RoleResponseDTO;
 import org.example.service.RoleService;
@@ -33,7 +32,7 @@ public class RoleRestController {
 
     @GetMapping("/{id}")
     @Validated
-    public ResponseEntity<RoleResponseDTO> getRoleById(@NotNull @ExistRoleId @PathVariable Integer id) {
+    public ResponseEntity<RoleResponseDTO> getRoleById(@NotNull @PathVariable Integer id) {
         RoleResponseDTO roleResponseDTO = roleService.getRoleById(id);
 
         log.info("Role: " + id + " successfully received");
@@ -52,7 +51,7 @@ public class RoleRestController {
 
     @PutMapping("/{id}")
     @Validated
-    public ResponseEntity<RoleResponseDTO> updateRole(@NotNull @ExistRoleId @PathVariable Integer id,
+    public ResponseEntity<RoleResponseDTO> updateRole(@NotNull @PathVariable Integer id,
                                                       @Valid @RequestBody RoleRequestDTO roleRequestDTO) {
 
         RoleResponseDTO roleResponseDTO = roleService.updateRole(id, roleRequestDTO);
@@ -64,7 +63,7 @@ public class RoleRestController {
 
     @DeleteMapping("/{id}")
     @Validated
-    public ResponseEntity<Void> deleteRole(@NotNull @ExistRoleId @PathVariable Integer id) {
+    public ResponseEntity<Void> deleteRole(@NotNull @PathVariable Integer id) {
         roleService.deleteRole(id);
 
         log.info("The role: " + id + " has successfully deleted");

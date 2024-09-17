@@ -1,6 +1,6 @@
 package org.example.mapper;
 
-import org.example.dto.requestdto.SubscriptionRequestDTO;
+import org.example.dto.requestdto.CreateSubscriptionRequestDTO;
 import org.example.dto.responsedto.SubscriptionResponseDTO;
 import org.example.model.Subscription;
 import org.mapstruct.Mapper;
@@ -18,5 +18,5 @@ public interface SubscriptionMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "planId", target = "plan.id")
-    Subscription toSubscriptionForCreate(SubscriptionRequestDTO subscriptionRequestDTO);
+    Subscription toSubscriptionForCreate(CreateSubscriptionRequestDTO subscriptionRequestDTO);
 }

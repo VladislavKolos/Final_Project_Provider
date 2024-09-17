@@ -5,13 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreatePlanRequestDTO;
 import org.example.dto.requestdto.UpdatePlanRequestDTO;
 import org.example.dto.responsedto.PlanResponseDTO;
+import org.example.exception.ProviderNotFoundException;
 import org.example.mapper.PlanMapper;
 import org.example.model.Plan;
 import org.example.repository.PlanRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +27,12 @@ public class PlanService {
     private final TariffService tariffService;
 
     @Transactional(readOnly = true)
-    public Page<PlanResponseDTO> getAllPlans(int page, int size, String sortBy, String direction) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(direction), sortBy));
+    public Plan getPlanEntityById(Integer id) {
+        return planRepository.findById(id).orElseThrow();
+    }
 
+    @Transactional(readOnly = true)
+    public Page<PlanResponseDTO> getAllPlans(Pageable pageable) {
         return planRepository.findAll(pageable)
                 .map(planMapper::toPlanResponseDTO);
     }
@@ -39,7 +41,7 @@ public class PlanService {
     public PlanResponseDTO getPlanById(Integer id) {
         return planRepository.findById(id)
                 .map(planMapper::toPlanResponseDTO)
-                .orElseThrow();
+                .orElseThrow(() -> new ProviderNotFoundException("Plan: " + id + " not found"));
     }
 
     @Transactional
@@ -61,7 +63,7 @@ public class PlanService {
     @Transactional
     public PlanResponseDTO updatePlan(Integer id, UpdatePlanRequestDTO updatePlanRequestDTO) {
         Plan plan = planRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Plan not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Plan: " + id + " not found"));
 
         plan.setName(updatePlanRequestDTO.getName());
         plan.setDescription(updatePlanRequestDTO.getDescription());
@@ -78,7 +80,7 @@ public class PlanService {
     @Transactional
     public void deletePlan(Integer id) {
         Plan plan = planRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Plan not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Plan: " + id + " not found"));
 
         planRepository.delete(plan);
     }

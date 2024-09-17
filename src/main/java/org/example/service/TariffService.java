@@ -5,13 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreateTariffRequestDTO;
 import org.example.dto.requestdto.UpdateTariffRequestDTO;
 import org.example.dto.responsedto.TariffResponseDTO;
+import org.example.exception.ProviderNotFoundException;
 import org.example.mapper.TariffMapper;
 import org.example.model.Tariff;
 import org.example.repository.TariffRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,9 +30,7 @@ public class TariffService {
     }
 
     @Transactional(readOnly = true)
-    public Page<TariffResponseDTO> getAllTariffs(int page, int size, String sortBy, String direction) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(direction), sortBy));
-
+    public Page<TariffResponseDTO> getAllTariffs(Pageable pageable) {
         return tariffRepository.findAll(pageable)
                 .map(tariffMapper::toTariffResponseDTO);
     }
@@ -42,7 +39,7 @@ public class TariffService {
     public TariffResponseDTO getTariffById(Integer id) {
         return tariffRepository.findById(id)
                 .map(tariffMapper::toTariffResponseDTO)
-                .orElseThrow();
+                .orElseThrow(() -> new ProviderNotFoundException("Tariff: " + id + " not found"));
     }
 
     @Transactional
@@ -57,7 +54,7 @@ public class TariffService {
     @Transactional
     public TariffResponseDTO updateTariff(Integer id, UpdateTariffRequestDTO updateTariffRequestDTO) {
         Tariff tariff = tariffRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Tariff not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Tariff: " + id + " not found"));
 
         tariff.setName(updateTariffRequestDTO.getName());
         tariff.setDescription(updateTariffRequestDTO.getDescription());
@@ -74,7 +71,7 @@ public class TariffService {
     @Transactional
     public void deleteTariff(Integer id) {
         Tariff tariff = tariffRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tariff not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Tariff: " + id + " not found"));
 
         tariffRepository.delete(tariff);
     }

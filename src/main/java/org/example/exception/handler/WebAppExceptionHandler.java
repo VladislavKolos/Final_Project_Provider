@@ -2,6 +2,10 @@ package org.example.exception.handler;
 
 import jakarta.servlet.ServletException;
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.ProviderBannedException;
+import org.example.exception.ProviderConflictException;
+import org.example.exception.ProviderNotFoundException;
+import org.example.exception.ProviderTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,7 +47,30 @@ public class WebAppExceptionHandler {
         return new ResponseEntity<>("IllegalArgumentException occurred: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    // TODO add more
+    @ExceptionHandler(ProviderBannedException.class)
+    public ResponseEntity<String> handleProviderBannedException(ProviderBannedException e) {
+        log.error("ProviderBannedException" + e);
+        return new ResponseEntity<>("ProviderBannedException occurred: " + e.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(ProviderTokenException.class)
+    public ResponseEntity<String> handleProviderTokenException(ProviderTokenException e) {
+        log.error("ProviderTokenException" + e);
+        return new ResponseEntity<>("ProviderTokenException occurred: " + e.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(ProviderNotFoundException.class)
+    public ResponseEntity<String> handleProviderNotFoundException(ProviderNotFoundException e) {
+        log.error("ProviderNotFoundException" + e);
+        return new ResponseEntity<>("ProviderNotFoundException occurred: " + e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ProviderConflictException.class)
+    public ResponseEntity<String> handleProviderConflictException(ProviderConflictException e) {
+        log.error("ProviderConflictException" + e);
+        return new ResponseEntity<>("ProviderConflictException occurred: " + e.getMessage(), HttpStatus.CONFLICT);
+    }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleAnotherException(Exception e) {

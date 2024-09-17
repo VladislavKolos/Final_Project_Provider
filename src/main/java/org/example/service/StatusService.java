@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.StatusRequestDTO;
 import org.example.dto.responsedto.StatusResponseDTO;
+import org.example.exception.ProviderNotFoundException;
 import org.example.mapper.StatusMapper;
 import org.example.model.Status;
 import org.example.repository.StatusRepository;
@@ -39,7 +40,7 @@ public class StatusService {
     public StatusResponseDTO getStatusById(Integer id) {
         return statusRepository.findById(id)
                 .map(statusMapper::toStatusResponseDTO)
-                .orElseThrow();
+                .orElseThrow(() -> new ProviderNotFoundException("Status: " + id + " not found"));
     }
 
     @Transactional
@@ -54,7 +55,7 @@ public class StatusService {
     @Transactional
     public StatusResponseDTO updateStatus(Integer id, StatusRequestDTO statusRequestDTO) {
         Status status = statusRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Status not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Status: " + id + " not found"));
 
         status.setName(statusRequestDTO.getName());
 
@@ -67,7 +68,7 @@ public class StatusService {
     @Transactional
     public void deleteStatus(Integer id) {
         Status status = statusRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Status not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Status: " + id + " not found"));
 
         statusRepository.delete(status);
     }

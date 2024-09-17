@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.annotation.customannotation.ExistStatusId;
 import org.example.dto.requestdto.StatusRequestDTO;
 import org.example.dto.responsedto.StatusResponseDTO;
 import org.example.service.StatusService;
@@ -33,7 +32,7 @@ public class StatusRestController {
 
     @GetMapping("/{id}")
     @Validated
-    public ResponseEntity<StatusResponseDTO> getStatusById(@NotNull @ExistStatusId @PathVariable Integer id) {
+    public ResponseEntity<StatusResponseDTO> getStatusById(@NotNull @PathVariable Integer id) {
         StatusResponseDTO statusResponseDTO = statusService.getStatusById(id);
 
         log.info("Status: " + id + " successfully received");
@@ -45,14 +44,14 @@ public class StatusRestController {
     public ResponseEntity<StatusResponseDTO> createStatus(@Valid @RequestBody StatusRequestDTO statusRequestDTO) {
         StatusResponseDTO statusResponseDTO = statusService.createStatus(statusRequestDTO);
 
-        log.info("Role: " + statusRequestDTO + " created successfully");
+        log.info("Status: " + statusRequestDTO + " created successfully");
 
         return ResponseEntity.ok(statusResponseDTO);
     }
 
     @PutMapping("/{id}")
     @Validated
-    public ResponseEntity<StatusResponseDTO> updateStatus(@NotNull @ExistStatusId @PathVariable Integer id,
+    public ResponseEntity<StatusResponseDTO> updateStatus(@NotNull @PathVariable Integer id,
                                                           @Valid @RequestBody StatusRequestDTO statusRequestDTO) {
 
         StatusResponseDTO statusResponseDTO = statusService.updateStatus(id, statusRequestDTO);
@@ -64,7 +63,7 @@ public class StatusRestController {
 
     @DeleteMapping("/{id}")
     @Validated
-    public ResponseEntity<Void> deleteStatus(@NotNull @ExistStatusId @PathVariable Integer id) {
+    public ResponseEntity<Void> deleteStatus(@NotNull @PathVariable Integer id) {
         statusService.deleteStatus(id);
 
         log.info("The status: " + id + " has successfully deleted");

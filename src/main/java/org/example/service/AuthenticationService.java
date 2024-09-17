@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.AuthenticationRequestDTO;
 import org.example.dto.requestdto.RegisterRequestDTO;
 import org.example.dto.responsedto.AuthenticationResponseDTO;
+import org.example.exception.ProviderBannedException;
 import org.example.model.User;
+import org.example.util.ProviderConstantUtil;
 import org.example.validator.authenticationvalidator.AuthenticationValidator;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,10 +37,10 @@ public class AuthenticationService {
     @Transactional
     public AuthenticationResponseDTO register(RegisterRequestDTO request) {
         if (authenticationValidator.checkUserByEmailIsBanned(request)) {
-            throw new IllegalArgumentException("User with this email is banned and cannot register again");
+            throw new ProviderBannedException("User with this email: " + request.getEmail() + " is banned and cannot register again");
 
         } else if (authenticationValidator.checkUserByPhoneIsBanned(request)) {
-            throw new IllegalArgumentException("User with this phone number is banned and cannot register again");
+            throw new ProviderBannedException("User with this phone: " + request.getPhone() + " number is banned and cannot register again");
         }
 
         User user = User.builder()
@@ -46,8 +48,8 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
                 .phone(request.getPhone())
-                .status(statusService.getStatusEntityById(1))
-                .role(roleService.getRoleEntityById(2))
+                .status(statusService.getStatusEntityById(ProviderConstantUtil.USER_STATUS_ACTIVE))
+                .role(roleService.getRoleEntityById(ProviderConstantUtil.ROLE_CLIENT))
                 .build();
 
         userService.save(user);
@@ -64,7 +66,7 @@ public class AuthenticationService {
                 request.getUsername(),
                 request.getPassword()));
 
-        User user = userService.getUserByUsername(request.getUsername()).orElseThrow();
+        User user = userService.findUserByUsername(request.getUsername()).orElseThrow();
 
         String jwtToken = jwtService.generateToken(user);
 

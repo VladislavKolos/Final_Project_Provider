@@ -3,7 +3,7 @@ CREATE DATABASE "provider_db";
 CREATE TABLE "role"
 (
     role_id   SERIAL PRIMARY KEY,
-    role_name VARCHAR(50) NOT NULL DEFAULT 'ROLE_CLIENT'
+    role_name VARCHAR(50) NOT NULL
 );
 
 INSERT INTO "role" (role_name)
@@ -13,7 +13,7 @@ VALUES ('ROLE_ADMIN'),
 CREATE TABLE "status"
 (
     status_id   SERIAL PRIMARY KEY,
-    status_name VARCHAR(50) NOT NULL DEFAULT 'active'
+    status_name VARCHAR(50) NOT NULL
 );
 
 INSERT INTO "status" (status_name)
@@ -39,8 +39,8 @@ CREATE TABLE "user"
     "password" VARCHAR(256)        NOT NULL,
     email      VARCHAR(256) UNIQUE NOT NULL,
     phone      VARCHAR(18) UNIQUE  NOT NULL,
-    role_id    INT                 REFERENCES "role" (role_id) ON DELETE SET NULL     DEFAULT 2,
-    status_id  INT                 REFERENCES "status" (status_id) ON DELETE SET NULL DEFAULT 1
+    role_id    INT                 REFERENCES "role" (role_id) ON DELETE SET NULL,
+    status_id  INT                 REFERENCES "status" (status_id) ON DELETE SET NULL
 );
 
 CREATE TABLE email_token
@@ -66,7 +66,7 @@ CREATE TABLE "subscription"
     subscription_id SERIAL PRIMARY KEY,
     user_id         INT REFERENCES "user" (user_id) ON DELETE CASCADE,
     plan_id         INT REFERENCES plan (plan_id) ON DELETE CASCADE,
-    status          VARCHAR(20) DEFAULT 'not signed'
+    status          VARCHAR(20)
 );
 
 CREATE TABLE "promotion"
@@ -94,10 +94,3 @@ CREATE INDEX idx_email ON "user" (email);
 CREATE INDEX idx_plan_name ON plan (plan_name);
 
 CREATE INDEX idx_tariff_name ON tariff (tariff_name);
-
-INSERT INTO "role" (role_name)
-VALUES ('ROLE_ADMIN');
-
-INSERT INTO "role" (role_name)
-SELECT 'ROLE_CLIENT'
-WHERE NOT EXISTS (SELECT 1 FROM "role" WHERE role_name = 'ROLE_CLIENT');

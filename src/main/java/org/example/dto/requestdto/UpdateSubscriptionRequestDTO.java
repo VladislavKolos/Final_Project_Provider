@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubscriptionRequestDTO {
+public class UpdateSubscriptionRequestDTO {
 
     @Size(min = 6, max = 20)
     private String status;

@@ -1,6 +1,6 @@
 package org.example.mapper;
 
-import org.example.dto.requestdto.UpdateUserRequestDTO;
+import org.example.dto.requestdto.CreateUserRequestDTO;
 import org.example.dto.responsedto.UserResponseDTO;
 import org.example.model.User;
 import org.mapstruct.Mapper;
@@ -18,5 +18,5 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "roleId", target = "role.id")
     @Mapping(source = "statusId", target = "status.id")
-    User toUserForCreate(UpdateUserRequestDTO userRequestDTO);
+    User toUserForCreate(CreateUserRequestDTO createUserRequestDTO);
 }

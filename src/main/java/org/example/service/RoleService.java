@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.RoleRequestDTO;
 import org.example.dto.responsedto.RoleResponseDTO;
+import org.example.exception.ProviderNotFoundException;
 import org.example.mapper.RoleMapper;
 import org.example.model.Role;
 import org.example.repository.RoleRepository;
@@ -39,7 +40,7 @@ public class RoleService {
     public RoleResponseDTO getRoleById(Integer id) {
         return roleRepository.findById(id)
                 .map(roleMapper::toRoleResponseDTO)
-                .orElseThrow();
+                .orElseThrow(() -> new ProviderNotFoundException("Role: " + id + " not found"));
     }
 
     @Transactional
@@ -54,7 +55,7 @@ public class RoleService {
     @Transactional
     public RoleResponseDTO updateRole(Integer id, RoleRequestDTO roleRequestDTO) {
         Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Role: " + id + " not found"));
 
         role.setName(roleRequestDTO.getName());
 
@@ -67,7 +68,7 @@ public class RoleService {
     @Transactional
     public void deleteRole(Integer id) {
         Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() -> new ProviderNotFoundException("Role: " + id + " not found"));
 
         roleRepository.delete(role);
     }

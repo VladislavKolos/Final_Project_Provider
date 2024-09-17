@@ -4,8 +4,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.annotation.customannotation.ExistStatusName;
-import org.example.annotation.customannotation.ExistUserId;
 import org.example.dto.requestdto.CreateUserRequestDTO;
 import org.example.dto.requestdto.PasswordChangeRequestDTO;
 import org.example.dto.requestdto.ProfileUpdateRequestDTO;
@@ -41,7 +39,7 @@ public class UserRestController {
 
     @GetMapping("/admin/users/{id}")
     @Validated
-    public ResponseEntity<UserResponseDTO> getUserById(@NotNull @ExistUserId @PathVariable Integer id) {
+    public ResponseEntity<UserResponseDTO> getUserById(@NotNull @PathVariable Integer id) {
         UserResponseDTO userResponseDTO = userService.getUserById(id);
 
         log.info("User: " + id + " successfully received");
@@ -53,7 +51,7 @@ public class UserRestController {
     public ResponseEntity<UserResponseDTO> getAdminProfile(Authentication authentication) {
         String username = authentication.getName();
 
-        UserResponseDTO userResponseDTO = userService.getUserByUsername(username)
+        UserResponseDTO userResponseDTO = userService.findUserByUsername(username)
                 .map(userMapper::toUserResponseDTO)
                 .orElseThrow();
 
@@ -73,7 +71,7 @@ public class UserRestController {
 
     @PutMapping("/admin/users/{id}")
     @Validated
-    public ResponseEntity<UserResponseDTO> updateUserById(@NotNull @ExistUserId @PathVariable Integer id,
+    public ResponseEntity<UserResponseDTO> updateUserById(@NotNull @PathVariable Integer id,
                                                           @Valid @RequestBody UpdateUserRequestDTO userRequestDTO) {
         UserResponseDTO userResponseDTO = userService.updateUserByIdForAdmin(id, userRequestDTO);
 
@@ -84,7 +82,7 @@ public class UserRestController {
 
     @PutMapping("/admin/users/change-password/{id}")
     @Validated
-    public ResponseEntity<String> changePasswordForAdmin(@NotNull @ExistUserId @PathVariable Integer id,
+    public ResponseEntity<String> changePasswordForAdmin(@NotNull @PathVariable Integer id,
                                                          @Valid @RequestBody PasswordChangeRequestDTO passwordChangeRequestDTO) {
         userService.changePassword(id, passwordChangeRequestDTO);
 
@@ -95,7 +93,7 @@ public class UserRestController {
 
     @PutMapping("/admin/users/update-profile/{id}")
     @Validated
-    public ResponseEntity<String> updateProfileForAdmin(@NotNull @ExistUserId @PathVariable Integer id,
+    public ResponseEntity<String> updateProfileForAdmin(@NotNull @PathVariable Integer id,
                                                         @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO) {
         userService.updateProfile(id, profileUpdateRequestDTO);
 
@@ -106,7 +104,7 @@ public class UserRestController {
 
     @DeleteMapping("/admin/users/{id}")
     @Validated
-    public ResponseEntity<Void> deleteUser(@NotNull @ExistUserId @PathVariable Integer id) {
+    public ResponseEntity<Void> deleteUser(@NotNull @PathVariable Integer id) {
         userService.deleteUser(id);
 
         log.info("The User: " + id + " has successfully deleted");
@@ -116,8 +114,8 @@ public class UserRestController {
 
     @PutMapping("/admin/users/{id}/status")
     @Validated
-    public ResponseEntity<String> updateUserStatus(@NotNull @ExistUserId @PathVariable Integer id,
-                                                   @ExistStatusName @RequestParam String status) {
+    public ResponseEntity<String> updateUserStatus(@NotNull @PathVariable Integer id,
+                                                   @NotNull @RequestParam String status) {
         userService.updateUserStatus(id, status);
 
         log.info("The User: " + id + " has successfully updated status to " + status);
@@ -129,7 +127,7 @@ public class UserRestController {
     public ResponseEntity<UserResponseDTO> getClientProfile(Authentication authentication) {
         String username = authentication.getName();
 
-        UserResponseDTO userResponseDTO = userService.getUserByUsername(username)
+        UserResponseDTO userResponseDTO = userService.findUserByUsername(username)
                 .map(userMapper::toUserResponseDTO)
                 .orElseThrow();
 
@@ -140,7 +138,7 @@ public class UserRestController {
 
     @PutMapping("/client/users/change-password/{id}")
     @Validated
-    public ResponseEntity<String> changePasswordForClient(@NotNull @ExistUserId @PathVariable Integer id,
+    public ResponseEntity<String> changePasswordForClient(@NotNull @PathVariable Integer id,
                                                           @Valid @RequestBody PasswordChangeRequestDTO passwordChangeRequestDTO) {
         userService.changePassword(id, passwordChangeRequestDTO);
 
@@ -151,7 +149,7 @@ public class UserRestController {
 
     @PutMapping("/client/users/update-profile/{id}")
     @Validated
-    public ResponseEntity<String> updateProfileForClient(@NotNull @ExistUserId @PathVariable Integer id,
+    public ResponseEntity<String> updateProfileForClient(@NotNull @PathVariable Integer id,
                                                          @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO) {
         userService.updateProfile(id, profileUpdateRequestDTO);
 

@@ -2,6 +2,8 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.ProviderNotFoundException;
+import org.example.exception.ProviderTokenException;
 import org.example.model.EmailToken;
 import org.example.model.User;
 import org.example.repository.EmailTokenRepository;
@@ -52,14 +54,14 @@ public class EmailService {
     @Transactional
     public void confirmEmail(String token) {
         EmailToken emailToken = emailTokenRepository.findByToken(token)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
+                .orElseThrow(() -> new ProviderTokenException("Invalid token"));
 
         if (emailToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Token expired");
+            throw new ProviderTokenException("Token expired");
         }
 
-        User user = userService.getUserByEmail(emailToken.getUser().getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = userService.findUserByEmail(emailToken.getUser().getEmail())
+                .orElseThrow(() -> new ProviderNotFoundException("User not found"));
 
         user.setEmail(emailToken.getUser().getEmail());
         userService.save(user);

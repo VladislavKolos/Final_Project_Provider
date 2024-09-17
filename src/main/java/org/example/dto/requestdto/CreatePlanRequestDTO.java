@@ -3,7 +3,6 @@ package org.example.dto.requestdto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.example.annotation.customannotation.ExistTariffId;
 import org.example.annotation.customannotation.NoExistPlanName;
 
 import java.time.LocalDate;
@@ -27,6 +26,5 @@ public class CreatePlanRequestDTO {
 
     private LocalDate endDate;
 
-    @ExistTariffId
     private int tariffId;
 }

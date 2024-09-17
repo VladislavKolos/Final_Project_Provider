@@ -9,6 +9,7 @@ import org.example.model.User;
 import org.example.service.JwtBlacklistService;
 import org.example.service.JwtService;
 import org.example.service.UserService;
+import org.example.util.ProviderConstantUtil;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,9 +57,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            User user = userService.getUserByUsername(username).orElseThrow();
-            if (user.getStatus().getName().equalsIgnoreCase("banned") ||
-                    user.getStatus().getName().equalsIgnoreCase("inactive")) {
+            User user = userService.findUserByUsername(username).orElseThrow();
+            if (user.getStatus().getId() == ProviderConstantUtil.USER_STATUS_BANNED ||
+                    user.getStatus().getId() == ProviderConstantUtil.USER_STATUS_INACTIVE) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return;
             }
