@@ -1,140 +1,34 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreateSubscriptionRequestDTO;
 import org.example.dto.requestdto.UpdateSubscriptionRequestDTO;
 import org.example.dto.responsedto.SubscriptionResponseDTO;
-import org.example.exception.ProviderNotFoundException;
-import org.example.mapper.SubscriptionMapper;
-import org.example.model.Subscription;
-import org.example.repository.SubscriptionRepository;
-import org.example.util.ProviderConstantUtil;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class SubscriptionService {
+/**
+ * This interface defines methods for creating, retrieving, updating, deleting and canceling subscriptions.
+ * It provides various operations to manage subscriptions based on user IDs and plan IDs.
+ */
+@Component
+public interface SubscriptionService {
+    List<SubscriptionResponseDTO> getAllSubscriptions();
 
-    private final SubscriptionRepository subscriptionRepository;
+    SubscriptionResponseDTO getSubscriptionById(Integer id);
 
-    private final SubscriptionMapper subscriptionMapper;
+    SubscriptionResponseDTO getSubscriptionByClientIdAndStatus(Integer id);
 
-    private final UserService userService;
+    SubscriptionResponseDTO createSubscription(CreateSubscriptionRequestDTO createSubscriptionRequestDTO);
 
-    private final PlanService planService;
+    SubscriptionResponseDTO updateSubscription(Integer id,
+                                               UpdateSubscriptionRequestDTO updateSubscriptionRequestDTO);
 
-    @Transactional(readOnly = true)
-    public List<SubscriptionResponseDTO> getAllSubscriptions() {
-        return subscriptionRepository.findAll()
-                .stream()
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .toList();
-    }
+    void deleteSubscription(Integer id);
 
-    @Transactional(readOnly = true)
-    public SubscriptionResponseDTO getSubscriptionById(Integer id) {
-        return subscriptionRepository.findById(id)
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .orElseThrow(() -> new ProviderNotFoundException("Subscription: " + id + " not found"));
-    }
+    SubscriptionResponseDTO subscribeToPlan(Integer userId, Integer planId);
 
-    @Transactional(readOnly = true)
-    public SubscriptionResponseDTO getSubscriptionByClientIdAndStatus(Integer id) {
-        return subscriptionRepository.findByUserIdAndStatus(id, ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED)
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .orElseThrow();
-    }
+    SubscriptionResponseDTO updateSubscriptionForClient(Integer userId, Integer newPlanId);
 
-    @Transactional
-    public SubscriptionResponseDTO createSubscription(CreateSubscriptionRequestDTO createSubscriptionRequestDTO) {
-        Subscription subscription = Subscription.builder()
-                .status(createSubscriptionRequestDTO.getStatus())
-                .user(userService.getUserEntityById(createSubscriptionRequestDTO.getUserId()))
-                .plan(planService.getPlanEntityById(createSubscriptionRequestDTO.getPlanId()))
-                .build();
-
-        return Optional.of(subscription)
-                .map(subscriptionRepository::save)
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public SubscriptionResponseDTO updateSubscription(Integer id,
-                                                      UpdateSubscriptionRequestDTO updateSubscriptionRequestDTO) {
-
-        Subscription subscription = subscriptionRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Subscription: " + id + " not found"));
-
-        subscription.setStatus(updateSubscriptionRequestDTO.getStatus());
-        subscription.setUser(userService.getUserEntityById(updateSubscriptionRequestDTO.getUserId()));
-        subscription.setPlan(planService.getPlanEntityById(updateSubscriptionRequestDTO.getPlanId()));
-
-        return Optional.of(subscription)
-                .map(subscriptionRepository::save)
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public void deleteSubscription(Integer id) {
-        Subscription subscription = subscriptionRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Subscription: " + id + " not found"));
-
-        subscriptionRepository.delete(subscription);
-    }
-
-    @Transactional
-    public SubscriptionResponseDTO subscribeToPlan(Integer userId, Integer planId) {
-        Subscription subscription = Subscription.builder()
-                .status(ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED)
-                .user(userService.getUserEntityById(userId))
-                .plan(planService.getPlanEntityById(planId))
-                .build();
-
-        return Optional.of(subscription)
-                .map(subscriptionRepository::save)
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public SubscriptionResponseDTO updateSubscriptionForClient(Integer userId, Integer newPlanId) {
-        Subscription currentSubscription = subscriptionRepository.findByUserIdAndStatus(userId,
-                        ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED)
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new ProviderNotFoundException("Current subscription for Client: " + userId + " not found"));
-
-        currentSubscription.setStatus(ProviderConstantUtil.SUBSCRIPTION_STATUS_NOT_SIGNED);
-        subscriptionRepository.save(currentSubscription);
-
-        Subscription subscription = Subscription.builder()
-                .status(ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED)
-                .user(userService.getUserEntityById(userId))
-                .plan(planService.getPlanEntityById(newPlanId))
-                .build();
-
-        return Optional.of(subscription)
-                .map(subscriptionRepository::save)
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public void cancelSubscription(Integer userId) {
-        Subscription subscription = subscriptionRepository.findByUserIdAndStatus(userId,
-                        ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED)
-                .orElseThrow(() -> new ProviderNotFoundException("Current subscription for Client: " + userId + " not found"));
-
-        subscription.setStatus(ProviderConstantUtil.SUBSCRIPTION_STATUS_NOT_SIGNED);
-        subscriptionRepository.save(subscription);
-    }
-
+    void cancelSubscription(Integer userId);
 }

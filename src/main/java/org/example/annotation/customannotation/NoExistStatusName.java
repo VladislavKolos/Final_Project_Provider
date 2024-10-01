@@ -6,6 +6,9 @@ import org.example.validator.customvalidator.NoExistStatusNameValidator;
 
 import java.lang.annotation.*;
 
+/**
+ * Annotation for checking the absence of status with the same name.
+ */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NoExistStatusNameValidator.class)

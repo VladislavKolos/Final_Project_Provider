@@ -1,82 +1,28 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreatePromotionTariffRequestDTO;
 import org.example.dto.requestdto.UpdatePromotionTariffRequestDTO;
 import org.example.dto.responsedto.PromotionTariffResponseDTO;
-import org.example.exception.ProviderNotFoundException;
-import org.example.mapper.PromotionTariffMapper;
-import org.example.model.PromotionTariff;
-import org.example.repository.PromotionTariffRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+/**
+ * This interface defines methods for CRUD (Create, Read, Update, Delete) operations on promotion tariffs.
+ * It also provides methods for retrieving promotion tariffs by ID and paginated queries.
+ * Promotion tariff data is likely represented by a dedicated model entity and Data Transfer Objects (DTOs)
+ * for improved data representation in different application layers.
+ */
+@Component
+public interface PromotionTariffService {
+    Page<PromotionTariffResponseDTO> getAllPromotionsTariffs(Pageable pageable);
 
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class PromotionTariffService {
+    PromotionTariffResponseDTO getPromotionTariffById(Integer id);
 
-    private final PromotionTariffRepository promotionTariffRepository;
+    PromotionTariffResponseDTO createPromotionTariff(CreatePromotionTariffRequestDTO createPromotionTariffRequestDTO);
 
-    private final PromotionTariffMapper promotionTariffMapper;
+    PromotionTariffResponseDTO updatePromotionTariff(Integer id,
+                                                     UpdatePromotionTariffRequestDTO updatePromotionTariffRequestDTO);
 
-    private final PromotionService promotionService;
-
-    private final TariffService tariffService;
-
-    @Transactional(readOnly = true)
-    public Page<PromotionTariffResponseDTO> getAllPromotionsTariffs(Pageable pageable) {
-        return promotionTariffRepository.findAll(pageable).map(promotionTariffMapper::toPromotionTariffResponseDTO);
-    }
-
-    @Transactional(readOnly = true)
-    public PromotionTariffResponseDTO getPromotionTariffById(Integer id) {
-        return promotionTariffRepository.findById(id)
-                .map(promotionTariffMapper::toPromotionTariffResponseDTO)
-                .orElseThrow(() -> new ProviderNotFoundException("Promotional tariff: " + id + " not found"));
-    }
-
-    @Transactional
-    public PromotionTariffResponseDTO createPromotionTariff(CreatePromotionTariffRequestDTO createPromotionTariffRequestDTO) {
-
-        PromotionTariff promotionTariff = PromotionTariff.builder()
-                .promotion(promotionService.getPromotionEntityById(createPromotionTariffRequestDTO.getPromotionId()))
-                .tariff(tariffService.getTariffEntityById(createPromotionTariffRequestDTO.getTariffId()))
-                .build();
-
-        return Optional.of(promotionTariff)
-                .map(promotionTariffRepository::save)
-                .map(promotionTariffMapper::toPromotionTariffResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public PromotionTariffResponseDTO updatePromotionTariff(Integer id,
-                                                            UpdatePromotionTariffRequestDTO updatePromotionTariffRequestDTO) {
-
-        PromotionTariff promotionTariff = promotionTariffRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Promotional tariff: " + id + " not found"));
-
-        promotionTariff.setPromotion(promotionService.getPromotionEntityById(updatePromotionTariffRequestDTO.getPromotionId()));
-        promotionTariff.setTariff(tariffService.getTariffEntityById(updatePromotionTariffRequestDTO.getTariffId()));
-
-        return Optional.of(promotionTariff)
-                .map(promotionTariffRepository::save)
-                .map(promotionTariffMapper::toPromotionTariffResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public void deletePromotionTariff(Integer id) {
-        PromotionTariff promotionTariff = promotionTariffRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Promotional tariff: " + id + " not found"));
-
-        promotionTariffRepository.delete(promotionTariff);
-    }
-
+    void deletePromotionTariff(Integer id);
 }

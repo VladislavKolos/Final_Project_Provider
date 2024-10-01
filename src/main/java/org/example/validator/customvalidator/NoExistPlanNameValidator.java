@@ -8,6 +8,9 @@ import org.example.annotation.customannotation.NoExistPlanName;
 import org.example.repository.PlanRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * No plan validator with the same name.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

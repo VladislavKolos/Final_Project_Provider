@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.dto.requestdto.RoleRequestDTO;
 import org.example.dto.responsedto.RoleResponseDTO;
 import org.example.service.RoleService;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for managing user roles.
+ * This class provides an API for managing user roles, including getting, creating, updating, and deleting.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/admin/roles")
@@ -21,6 +26,7 @@ public class RoleRestController {
 
     private final RoleService roleService;
 
+    @ExecutionTime
     @GetMapping
     public ResponseEntity<List<RoleResponseDTO>> getAllRoles() {
         List<RoleResponseDTO> rolesList = roleService.getAllRoles();
@@ -30,6 +36,7 @@ public class RoleRestController {
         return ResponseEntity.ok(rolesList);
     }
 
+    @ExecutionTime
     @GetMapping("/{id}")
     @Validated
     public ResponseEntity<RoleResponseDTO> getRoleById(@NotNull @PathVariable Integer id) {

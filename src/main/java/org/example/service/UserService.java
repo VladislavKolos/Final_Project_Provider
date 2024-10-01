@@ -1,202 +1,47 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreateUserRequestDTO;
 import org.example.dto.requestdto.PasswordChangeRequestDTO;
 import org.example.dto.requestdto.ProfileUpdateRequestDTO;
 import org.example.dto.requestdto.UpdateUserRequestDTO;
 import org.example.dto.responsedto.UserResponseDTO;
-import org.example.exception.ProviderConflictException;
-import org.example.exception.ProviderNotFoundException;
-import org.example.mapper.UserMapper;
-import org.example.model.Status;
 import org.example.model.User;
-import org.example.repository.UserRepository;
-import org.example.validator.uservalidator.UserRequestDTOValidator;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class UserService {
+/**
+ * Provides methods for creating, retrieving, updating, and deleting user accounts.
+ * Also handles password changes, email confirmation, and status updates.
+ */
+@Component
+public interface UserService {
+    void save(User user);
 
-    private final UserRepository userRepository;
+    User getUserEntityById(Integer id);
 
-    private final PasswordEncoder passwordEncoder;
+    Optional<User> findUserByUsername(String username);
 
-    private final UserMapper userMapper;
+    Optional<User> findUserByEmail(String email);
 
-    private final RoleService roleService;
+    Optional<User> findUserByPhone(String phone);
 
-    private final StatusService statusService;
+    List<UserResponseDTO> getAllUsers();
 
-    private final UserRequestDTOValidator userRequestDTOValidator;
+    UserResponseDTO getUserById(Integer id);
 
-    private final EmailService emailService;
+    UserResponseDTO createUser(CreateUserRequestDTO createUserRequestDTO);
 
-    @Transactional
-    public void save(User user) {
-        userRepository.save(user);
-    }
+    UserResponseDTO updateUserByIdForAdmin(Integer id, UpdateUserRequestDTO userRequestDTO);
 
-    @Transactional(readOnly = true)
-    public User getUserEntityById(Integer id) {
-        return userRepository.findById(id).orElseThrow();
-    }
+    void changePassword(Integer id, PasswordChangeRequestDTO passwordChangeRequestDTO);
 
-    @Transactional(readOnly = true)
-    public Optional<User> findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    void updateProfile(Integer id, ProfileUpdateRequestDTO profileUpdateRequestDTO);
 
-    @Transactional(readOnly = true)
-    public Optional<User> findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
+    void deleteUser(Integer id);
 
-    @Transactional(readOnly = true)
-    public Optional<User> findUserByPhone(String phone) {
-        return userRepository.findByPhone(phone);
-    }
+    void updateUserStatus(Integer id, String statusName);
 
-    @Transactional(readOnly = true)
-    public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toUserResponseDTO)
-                .toList();
-    }
-
-    @Transactional(readOnly = true)
-    public UserResponseDTO getUserById(Integer id) {
-        return userRepository.findById(id)
-                .map(userMapper::toUserResponseDTO)
-                .orElseThrow(() -> new ProviderNotFoundException("User: " + id + " not found"));
-    }
-
-    @Transactional
-    public UserResponseDTO createUser(CreateUserRequestDTO createUserRequestDTO) {
-        if (userRequestDTOValidator.noExistUsername(createUserRequestDTO.getUsername())) {
-            throw new ProviderConflictException("User with username: " + createUserRequestDTO.getUsername() + " already exists");
-        } else if (userRequestDTOValidator.noExistEmail(createUserRequestDTO.getEmail())) {
-            throw new ProviderConflictException("User with email: " + createUserRequestDTO.getEmail() + " already exists");
-        } else if (userRequestDTOValidator.noExistPhone(createUserRequestDTO.getPhone())) {
-            throw new ProviderConflictException("User with phone: " + createUserRequestDTO.getPhone() + " already exists");
-        }
-
-        User user = User.builder()
-                .username(createUserRequestDTO.getUsername())
-                .password(passwordEncoder.encode(createUserRequestDTO.getPassword()))
-                .email(createUserRequestDTO.getEmail())
-                .phone(createUserRequestDTO.getPhone())
-                .status(statusService.getStatusEntityById(createUserRequestDTO.getStatusId()))
-                .role(roleService.getRoleEntityById(createUserRequestDTO.getRoleId()))
-                .build();
-
-        return Optional.of(user)
-                .map(userRepository::save)
-                .map(userMapper::toUserResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public UserResponseDTO updateUserByIdForAdmin(Integer id, UpdateUserRequestDTO userRequestDTO) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("User: " + id + " not found"));
-
-        if (userRequestDTOValidator.noExistUsername(userRequestDTO.getUsername())) {
-            throw new ProviderConflictException("User with username: " + userRequestDTO.getUsername() + " already exists");
-        } else if (userRequestDTOValidator.noExistEmail(userRequestDTO.getEmail())) {
-            throw new ProviderConflictException("User with email: " + userRequestDTO.getEmail() + " already exists");
-        } else if (userRequestDTOValidator.noExistPhone(userRequestDTO.getPhone())) {
-            throw new ProviderConflictException("User with phone: " + userRequestDTO.getPhone() + " already exists");
-        }
-
-        user.setUsername(userRequestDTO.getUsername());
-        user.setEmail(userRequestDTO.getEmail());
-        user.setPhone(userRequestDTO.getPhone());
-        user.setStatus(statusService.getStatusEntityById(userRequestDTO.getStatusId()));
-        user.setRole(roleService.getRoleEntityById(userRequestDTO.getRoleId()));
-
-        if (userRequestDTO.getPassword() != null && !userRequestDTO.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
-        }
-
-        return Optional.of(user)
-                .map(userRepository::save)
-                .map(userMapper::toUserResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public void changePassword(Integer id, PasswordChangeRequestDTO passwordChangeRequestDTO) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("User: " + id + " not found"));
-
-        if (!passwordEncoder.matches(passwordChangeRequestDTO.getOldPassword(), user.getPassword())) {
-            throw new ProviderConflictException("Old password is incorrect");
-        }
-
-        if (!passwordChangeRequestDTO.getNewPassword().equals(passwordChangeRequestDTO.getConfirmNewPassword())) {
-            throw new ProviderConflictException("New passwords do not match");
-        }
-
-        user.setPassword(passwordEncoder.encode(passwordChangeRequestDTO.getNewPassword()));
-        userRepository.save(user);
-    }
-
-    @Transactional
-    public void updateProfile(Integer id, ProfileUpdateRequestDTO profileUpdateRequestDTO) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("User: " + id + " not found"));
-
-        if (userRequestDTOValidator.noExistUsername(profileUpdateRequestDTO.getUsername())) {
-            throw new ProviderConflictException("User with username: " + profileUpdateRequestDTO.getUsername() + " already exists");
-        } else if (userRequestDTOValidator.noExistEmail(profileUpdateRequestDTO.getEmail())) {
-            throw new ProviderConflictException("User with email: " + profileUpdateRequestDTO.getEmail() + " already exists");
-        } else if (userRequestDTOValidator.noExistPhone(profileUpdateRequestDTO.getPhone())) {
-            throw new ProviderConflictException("User with phone: " + profileUpdateRequestDTO.getPhone() + " already exists");
-        }
-
-        if (profileUpdateRequestDTO.getUsername() != null) {
-            user.setUsername(profileUpdateRequestDTO.getUsername());
-        }
-
-        if (profileUpdateRequestDTO.getEmail() != null) {
-            user.setEmail(profileUpdateRequestDTO.getEmail());
-            emailService.sendConfirmationEmail(user, user.getEmail());
-        }
-
-        if (profileUpdateRequestDTO.getPhone() != null) {
-            user.setPhone(profileUpdateRequestDTO.getPhone());
-        }
-
-        userRepository.save(user);
-    }
-
-    @Transactional
-    public void deleteUser(Integer id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("User: " + id + " not found"));
-
-        userRepository.delete(user);
-    }
-
-    @Transactional
-    public void updateUserStatus(Integer id, String statusName) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("User: " + id + " not found"));
-
-        Status status = statusService.getStatusByName(statusName)
-                .orElseThrow(() -> new ProviderNotFoundException("Status: " + statusName + " not found"));
-
-        user.setStatus(status);
-        userRepository.save(user);
-    }
+    void confirmEmail(String token);
 }

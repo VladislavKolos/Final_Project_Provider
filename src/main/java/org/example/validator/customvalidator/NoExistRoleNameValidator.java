@@ -8,13 +8,15 @@ import org.example.annotation.customannotation.NoExistRoleName;
 import org.example.repository.RoleRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * No role validator with the same name.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class NoExistRoleNameValidator implements ConstraintValidator<NoExistRoleName, String> {
 
     private final RoleRepository roleRepository;
-
 
     @Override
     public boolean isValid(String roleName, ConstraintValidatorContext context) {

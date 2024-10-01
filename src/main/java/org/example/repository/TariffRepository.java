@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository for working with the `Tariff` entity.
+ */
 @Repository
 public interface TariffRepository extends JpaRepository<Tariff, Integer> {
 

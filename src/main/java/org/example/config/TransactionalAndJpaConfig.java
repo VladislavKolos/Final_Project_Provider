@@ -12,9 +12,12 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Configuration for transaction management and JPA.
+ */
 @Configuration
 @RequiredArgsConstructor
-public class TransactionalConfig {
+public class TransactionalAndJpaConfig {
     private final Environment env;
 
     @Bean

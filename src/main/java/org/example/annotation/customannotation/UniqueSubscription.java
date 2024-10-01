@@ -6,6 +6,9 @@ import org.example.validator.customvalidator.UniqueSubscriptionValidator;
 
 import java.lang.annotation.*;
 
+/**
+ * Annotation for checking the uniqueness of a subscription.
+ */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UniqueSubscriptionValidator.class)

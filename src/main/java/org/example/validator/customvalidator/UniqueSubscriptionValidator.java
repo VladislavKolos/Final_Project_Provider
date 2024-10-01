@@ -9,6 +9,9 @@ import org.example.repository.SubscriptionRepository;
 import org.example.util.RecipientCurrentClientUtil;
 import org.springframework.stereotype.Component;
 
+/**
+ * Subscription uniqueness validator.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

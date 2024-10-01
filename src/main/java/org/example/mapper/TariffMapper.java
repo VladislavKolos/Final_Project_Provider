@@ -7,6 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper for converting Tariff and DTO objects.
+ */
 @Component
 @Mapper(componentModel = "spring")
 public interface TariffMapper {

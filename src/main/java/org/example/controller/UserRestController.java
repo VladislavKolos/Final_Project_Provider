@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.dto.requestdto.CreateUserRequestDTO;
 import org.example.dto.requestdto.PasswordChangeRequestDTO;
 import org.example.dto.requestdto.ProfileUpdateRequestDTO;
@@ -18,6 +19,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for user management.
+ * This class provides an API for user management, including getting, creating, updating, deleting,
+ * changing password and updating profile (for administrator and client),
+ * updating user status (available only to administrator),
+ * getting profiles of authorized administrators and clients,
+ * confirming user email address
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -28,6 +37,7 @@ public class UserRestController {
 
     private final UserMapper userMapper;
 
+    @ExecutionTime
     @GetMapping("/admin/users")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         List<UserResponseDTO> users = userService.getAllUsers();
@@ -37,6 +47,7 @@ public class UserRestController {
         return ResponseEntity.ok(users);
     }
 
+    @ExecutionTime
     @GetMapping("/admin/users/{id}")
     @Validated
     public ResponseEntity<UserResponseDTO> getUserById(@NotNull @PathVariable Integer id) {
@@ -47,6 +58,7 @@ public class UserRestController {
         return ResponseEntity.ok(userResponseDTO);
     }
 
+    @ExecutionTime
     @GetMapping("/admin/users/profile")
     public ResponseEntity<UserResponseDTO> getAdminProfile(Authentication authentication) {
         String username = authentication.getName();
@@ -123,6 +135,7 @@ public class UserRestController {
         return ResponseEntity.ok("User status updated to " + status);
     }
 
+    @ExecutionTime
     @GetMapping("/client/users/profile")
     public ResponseEntity<UserResponseDTO> getClientProfile(Authentication authentication) {
         String username = authentication.getName();
@@ -136,6 +149,7 @@ public class UserRestController {
         return ResponseEntity.ok(userResponseDTO);
     }
 
+    @ExecutionTime
     @PutMapping("/client/users/change-password/{id}")
     @Validated
     public ResponseEntity<String> changePasswordForClient(@NotNull @PathVariable Integer id,
@@ -147,6 +161,7 @@ public class UserRestController {
         return ResponseEntity.ok("Password changed successfully");
     }
 
+    @ExecutionTime
     @PutMapping("/client/users/update-profile/{id}")
     @Validated
     public ResponseEntity<String> updateProfileForClient(@NotNull @PathVariable Integer id,
@@ -156,5 +171,14 @@ public class UserRestController {
         log.info("For Client: " + id + " profile updated successfully");
 
         return ResponseEntity.ok("Profile updated successfully");
+    }
+
+    @PostMapping("/users/confirm-email")
+    public ResponseEntity<String> confirmEmail(@RequestParam String token) {
+        userService.confirmEmail(token);
+
+        log.info("Email confirmed successfully");
+
+        return ResponseEntity.ok("Email confirmed successfully");
     }
 }

@@ -21,18 +21,31 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * JWT authentication filter.
+ * This filter applies to all API requests and is executed once per request.
+ * It extracts the JWT token from the `Authorization` header, checks its validity and blacklist,
+ * and then sets the Spring Security context based on the extracted username from the token.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
-    private final JwtBlacklistService blacklistService;
+    private final JwtBlacklistService jwtBlacklistService;
 
     private final UserDetailsService userDetailsService;
 
     private final UserService userService;
 
+    /**
+     * Overridden method for filtering requests.
+     *
+     * @param request     HTTP request
+     * @param response    HTTP response
+     * @param filterChain Spring Security filter chain
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -48,7 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         jwt = authHeader.substring(7);
 
-        if (blacklistService.isTokenBlacklisted(jwt)) {
+        if (jwtBlacklistService.isTokenBlacklisted(jwt)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }

@@ -6,6 +6,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/**
+ * An entity for representing plans.
+ */
 @Entity
 @Table(name = "plan",
         indexes = {

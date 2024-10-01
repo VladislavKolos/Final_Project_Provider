@@ -11,6 +11,9 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * An entity for representing promotions.
+ */
 @Entity
 @Table(name = "promotion")
 @Getter

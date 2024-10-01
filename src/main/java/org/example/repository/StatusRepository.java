@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository for working with the `Status` entity.
+ */
 @Repository
 public interface StatusRepository extends JpaRepository<Status, Integer> {
 

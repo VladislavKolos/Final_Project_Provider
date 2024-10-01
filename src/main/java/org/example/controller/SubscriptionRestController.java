@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.annotation.customannotation.ExistPlanId;
 import org.example.annotation.customannotation.UniqueSubscription;
 import org.example.dto.requestdto.CreateSubscriptionRequestDTO;
@@ -17,6 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for managing subscriptions.
+ * This class provides an API for managing subscriptions, including getting, creating, updating, canceling,
+ * and getting information about the current subscription for a client.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -24,6 +30,7 @@ import java.util.List;
 public class SubscriptionRestController {
     private final SubscriptionService subscriptionService;
 
+    @ExecutionTime
     @GetMapping("/admin/subscriptions")
     public ResponseEntity<List<SubscriptionResponseDTO>> getAllSubscriptions() {
         List<SubscriptionResponseDTO> subscriptions = subscriptionService.getAllSubscriptions();
@@ -33,6 +40,7 @@ public class SubscriptionRestController {
         return ResponseEntity.ok(subscriptions);
     }
 
+    @ExecutionTime
     @GetMapping("/admin/subscriptions/{id}")
     @Validated
     public ResponseEntity<SubscriptionResponseDTO> getSubscriptionByIdForAdmin(@NotNull @PathVariable Integer id) {
@@ -76,6 +84,7 @@ public class SubscriptionRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @ExecutionTime
     @GetMapping("/client/subscriptions/me")
     public ResponseEntity<SubscriptionResponseDTO> getSubscriptionForClientByClientIdAndStatus() {
         int clientId = RecipientCurrentClientUtil.getCurrentClientId();

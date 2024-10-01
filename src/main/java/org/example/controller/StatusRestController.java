@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.dto.requestdto.StatusRequestDTO;
 import org.example.dto.responsedto.StatusResponseDTO;
 import org.example.service.StatusService;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for status management.
+ * This class provides an API for managing statuses, including getting, creating, updating, and deleting.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/admin/statuses")
@@ -21,6 +26,7 @@ public class StatusRestController {
 
     private final StatusService statusService;
 
+    @ExecutionTime
     @GetMapping
     public ResponseEntity<List<StatusResponseDTO>> getAllStatuses() {
         List<StatusResponseDTO> statusesList = statusService.getAllStatuses();
@@ -30,6 +36,7 @@ public class StatusRestController {
         return ResponseEntity.ok(statusesList);
     }
 
+    @ExecutionTime
     @GetMapping("/{id}")
     @Validated
     public ResponseEntity<StatusResponseDTO> getStatusById(@NotNull @PathVariable Integer id) {
@@ -61,6 +68,7 @@ public class StatusRestController {
         return ResponseEntity.ok(statusResponseDTO);
     }
 
+    @ExecutionTime
     @DeleteMapping("/{id}")
     @Validated
     public ResponseEntity<Void> deleteStatus(@NotNull @PathVariable Integer id) {

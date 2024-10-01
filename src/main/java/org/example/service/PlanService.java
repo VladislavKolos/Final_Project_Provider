@@ -1,87 +1,30 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreatePlanRequestDTO;
 import org.example.dto.requestdto.UpdatePlanRequestDTO;
 import org.example.dto.responsedto.PlanResponseDTO;
-import org.example.exception.ProviderNotFoundException;
-import org.example.mapper.PlanMapper;
 import org.example.model.Plan;
-import org.example.repository.PlanRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+/**
+ * This interface defines methods for CRUD (Create, Read, Update, Delete) operations on plans.
+ * It also provides methods for retrieving plans by ID and paginated queries.
+ * Plan data is represented by both model entities (Plan) and Data Transfer Objects (DTOs)
+ * for improved data representation in different layers of the application.
+ */
+@Component
+public interface PlanService {
+    Plan getPlanEntityById(Integer id);
 
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class PlanService {
-    private final PlanRepository planRepository;
+    Page<PlanResponseDTO> getAllPlans(Pageable pageable);
 
-    private final PlanMapper planMapper;
+    PlanResponseDTO getPlanById(Integer id);
 
-    private final TariffService tariffService;
+    PlanResponseDTO createPlan(CreatePlanRequestDTO createPlanRequestDTO);
 
-    @Transactional(readOnly = true)
-    public Plan getPlanEntityById(Integer id) {
-        return planRepository.findById(id).orElseThrow();
-    }
+    PlanResponseDTO updatePlan(Integer id, UpdatePlanRequestDTO updatePlanRequestDTO);
 
-    @Transactional(readOnly = true)
-    public Page<PlanResponseDTO> getAllPlans(Pageable pageable) {
-        return planRepository.findAll(pageable)
-                .map(planMapper::toPlanResponseDTO);
-    }
-
-    @Transactional(readOnly = true)
-    public PlanResponseDTO getPlanById(Integer id) {
-        return planRepository.findById(id)
-                .map(planMapper::toPlanResponseDTO)
-                .orElseThrow(() -> new ProviderNotFoundException("Plan: " + id + " not found"));
-    }
-
-    @Transactional
-    public PlanResponseDTO createPlan(CreatePlanRequestDTO createPlanRequestDTO) {
-        Plan plan = Plan.builder()
-                .name(createPlanRequestDTO.getName())
-                .description(createPlanRequestDTO.getDescription())
-                .startDate(createPlanRequestDTO.getStartDate())
-                .endDate(createPlanRequestDTO.getEndDate())
-                .tariff(tariffService.getTariffEntityById(createPlanRequestDTO.getTariffId()))
-                .build();
-
-        return Optional.of(plan)
-                .map(planRepository::save)
-                .map(planMapper::toPlanResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public PlanResponseDTO updatePlan(Integer id, UpdatePlanRequestDTO updatePlanRequestDTO) {
-        Plan plan = planRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Plan: " + id + " not found"));
-
-        plan.setName(updatePlanRequestDTO.getName());
-        plan.setDescription(updatePlanRequestDTO.getDescription());
-        plan.setStartDate(updatePlanRequestDTO.getStartDate());
-        plan.setEndDate(updatePlanRequestDTO.getEndDate());
-        plan.setTariff(tariffService.getTariffEntityById(updatePlanRequestDTO.getTariffId()));
-
-        return Optional.of(plan)
-                .map(planRepository::save)
-                .map(planMapper::toPlanResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public void deletePlan(Integer id) {
-        Plan plan = planRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Plan: " + id + " not found"));
-
-        planRepository.delete(plan);
-    }
+    void deletePlan(Integer id);
 }

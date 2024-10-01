@@ -7,6 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper for converting User and DTO objects.
+ */
 @Component
 @Mapper(componentModel = "spring", uses = {RoleMapper.class, StatusMapper.class})
 public interface UserMapper {

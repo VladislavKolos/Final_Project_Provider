@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+/**
+ * An entity for representing subscriptions.
+ */
 @Entity
 @Table(name = "subscription")
 @Getter

@@ -3,6 +3,9 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * An entity to represent the relationship between promotions and tariffs.
+ */
 @Entity
 @Table(name = "promotions_tariffs")
 @Getter

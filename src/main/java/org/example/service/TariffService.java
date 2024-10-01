@@ -1,78 +1,30 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreateTariffRequestDTO;
 import org.example.dto.requestdto.UpdateTariffRequestDTO;
 import org.example.dto.responsedto.TariffResponseDTO;
-import org.example.exception.ProviderNotFoundException;
-import org.example.mapper.TariffMapper;
 import org.example.model.Tariff;
-import org.example.repository.TariffRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+/**
+ * This interface defines methods for CRUD (Create, Read, Update, Delete) operations on tariffs.
+ * It also provides methods for retrieving tariffs by ID and paginated queries.
+ * Tariff data is likely represented by a dedicated model entity (Tariff) and Data Transfer Objects (DTOs)
+ * for improved data representation in different application layers.
+ */
+@Component
+public interface TariffService {
+    Tariff getTariffEntityById(Integer id);
 
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class TariffService {
-    private final TariffRepository tariffRepository;
+    Page<TariffResponseDTO> getAllTariffs(Pageable pageable);
 
-    private final TariffMapper tariffMapper;
+    TariffResponseDTO getTariffById(Integer id);
 
-    @Transactional(readOnly = true)
-    public Tariff getTariffEntityById(Integer id) {
-        return tariffRepository.findById(id).orElseThrow();
-    }
+    TariffResponseDTO createTariff(CreateTariffRequestDTO tariffRequestDTO);
 
-    @Transactional(readOnly = true)
-    public Page<TariffResponseDTO> getAllTariffs(Pageable pageable) {
-        return tariffRepository.findAll(pageable)
-                .map(tariffMapper::toTariffResponseDTO);
-    }
+    TariffResponseDTO updateTariff(Integer id, UpdateTariffRequestDTO updateTariffRequestDTO);
 
-    @Transactional(readOnly = true)
-    public TariffResponseDTO getTariffById(Integer id) {
-        return tariffRepository.findById(id)
-                .map(tariffMapper::toTariffResponseDTO)
-                .orElseThrow(() -> new ProviderNotFoundException("Tariff: " + id + " not found"));
-    }
-
-    @Transactional
-    public TariffResponseDTO createTariff(CreateTariffRequestDTO tariffRequestDTO) {
-        return Optional.of(tariffRequestDTO)
-                .map(tariffMapper::toTariffForCreate)
-                .map(tariffRepository::save)
-                .map(tariffMapper::toTariffResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public TariffResponseDTO updateTariff(Integer id, UpdateTariffRequestDTO updateTariffRequestDTO) {
-        Tariff tariff = tariffRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Tariff: " + id + " not found"));
-
-        tariff.setName(updateTariffRequestDTO.getName());
-        tariff.setDescription(updateTariffRequestDTO.getDescription());
-        tariff.setMonthlyCost(updateTariffRequestDTO.getMonthlyCost());
-        tariff.setDataLimit(updateTariffRequestDTO.getDataLimit());
-        tariff.setVoiceLimit(updateTariffRequestDTO.getVoiceLimit());
-
-        return Optional.of(tariff)
-                .map(tariffRepository::save)
-                .map(tariffMapper::toTariffResponseDTO)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public void deleteTariff(Integer id) {
-        Tariff tariff = tariffRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException("Tariff: " + id + " not found"));
-
-        tariffRepository.delete(tariff);
-    }
+    void deleteTariff(Integer id);
 }

@@ -3,6 +3,7 @@ package org.example.controller;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.dto.requestdto.CreatePromotionTariffRequestDTO;
 import org.example.dto.requestdto.UpdatePromotionTariffRequestDTO;
 import org.example.dto.responsedto.PromotionTariffResponseDTO;
@@ -15,6 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for managing promotional tariffs.
+ * This class provides an API for managing promotional tariffs, including getting, creating, updating, and deleting.
+ * It is divided into methods for administrator and client.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -23,6 +29,7 @@ public class PromotionTariffRestController {
 
     private final PromotionTariffService promotionTariffService;
 
+    @ExecutionTime
     @GetMapping("/admin/promotions-tariffs")
     @Validated
     public ResponseEntity<Page<PromotionTariffResponseDTO>> getAllPromotionsTariffsForAdmin(@PageableDefault(sort = "discountPercentage", direction = Sort.Direction.ASC, value = 5)
@@ -34,6 +41,7 @@ public class PromotionTariffRestController {
         return ResponseEntity.ok(promotionsTariffs);
     }
 
+    @ExecutionTime
     @GetMapping("/admin/promotions-tariffs/{id}")
     @Validated
     public ResponseEntity<PromotionTariffResponseDTO> getPromotionTariffByIdForAdmin(@NotNull @PathVariable Integer id) {
@@ -76,6 +84,7 @@ public class PromotionTariffRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @ExecutionTime
     @GetMapping("/client/promotions-tariffs")
     @Validated
     public ResponseEntity<Page<PromotionTariffResponseDTO>> getAllPromotionsTariffsForClient(@PageableDefault(sort = "discountPercentage", direction = Sort.Direction.ASC, value = 5)

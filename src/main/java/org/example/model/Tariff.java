@@ -10,6 +10,9 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * An entity for representing tariffs.
+ */
 @Entity
 @Table(name = "tariff",
         indexes = {

@@ -6,6 +6,9 @@ import org.example.validator.customvalidator.NoExistRoleNameValidator;
 
 import java.lang.annotation.*;
 
+/**
+ * Annotation to check for the absence of a role with the same name.
+ */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NoExistRoleNameValidator.class)

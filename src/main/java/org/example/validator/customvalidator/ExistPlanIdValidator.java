@@ -8,6 +8,9 @@ import org.example.annotation.customannotation.ExistPlanId;
 import org.example.repository.PlanRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * Plan ID existence validator.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

@@ -8,6 +8,9 @@ import org.example.annotation.customannotation.NoExistTariffName;
 import org.example.repository.TariffRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * No tariff validator with the same name.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

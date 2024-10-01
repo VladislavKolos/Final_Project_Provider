@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository for working with the `Subscription` entity.
+ */
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Integer> {
 

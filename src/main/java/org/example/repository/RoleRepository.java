@@ -4,6 +4,9 @@ import org.example.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository for working with the `Role` entity.
+ */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 

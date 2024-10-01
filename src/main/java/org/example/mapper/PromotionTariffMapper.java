@@ -7,6 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper for converting PromotionTariff and DTO objects.
+ */
 @Component
 @Mapper(componentModel = "spring", uses = {TariffMapper.class, PromotionMapper.class})
 public interface PromotionTariffMapper {

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.dto.requestdto.CreatePromotionRequestDTO;
 import org.example.dto.requestdto.UpdatePromotionRequestDTO;
 import org.example.dto.responsedto.PromotionResponseDTO;
@@ -16,6 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for managing promotions.
+ * This class provides an API for managing promotions, including getting, creating, updating, and deleting.
+ * It is divided into methods for administrator and client.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -23,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 public class PromotionRestController {
     private final PromotionService promotionService;
 
+    @ExecutionTime
     @GetMapping("/admin/promotions")
     @Validated
     public ResponseEntity<Page<PromotionResponseDTO>> getAllPromotionsForAdmin(@PageableDefault(sort = "discountPercentage", direction = Sort.Direction.ASC, value = 5)
@@ -34,6 +41,7 @@ public class PromotionRestController {
         return ResponseEntity.ok(promotions);
     }
 
+    @ExecutionTime
     @GetMapping("/admin/promotions/{id}")
     @Validated
     public ResponseEntity<PromotionResponseDTO> getPromotionByIdForAdmin(@NotNull @PathVariable Integer id) {
@@ -74,6 +82,7 @@ public class PromotionRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @ExecutionTime
     @GetMapping("/client/promotions")
     @Validated
     public ResponseEntity<Page<PromotionResponseDTO>> getAllPromotionsForClient(@PageableDefault(sort = "discountPercentage", direction = Sort.Direction.ASC, value = 5)

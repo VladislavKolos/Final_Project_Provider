@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * An entity for representing roles.
+ */
 @Entity
 @Table(name = "role")
 @Getter

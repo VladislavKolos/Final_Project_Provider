@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.dto.requestdto.CreatePlanRequestDTO;
 import org.example.dto.requestdto.UpdatePlanRequestDTO;
 import org.example.dto.responsedto.PlanResponseDTO;
@@ -16,6 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for managing plans.
+ * This class provides an API for managing plans, including getting, creating, updating, and deleting.
+ * It is divided into methods for administrator and client.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -23,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 public class PlanRestController {
     private final PlanService planService;
 
+    @ExecutionTime
     @GetMapping("/admin/plans")
     @Validated
     public ResponseEntity<Page<PlanResponseDTO>> getAllPlansForAdmin(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)
@@ -34,6 +41,7 @@ public class PlanRestController {
         return ResponseEntity.ok(plans);
     }
 
+    @ExecutionTime
     @GetMapping("/admin/plans/{id}")
     @Validated
     public ResponseEntity<PlanResponseDTO> getPlanByIdForAdmin(@NotNull @PathVariable Integer id) {
@@ -74,6 +82,7 @@ public class PlanRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @ExecutionTime
     @GetMapping("/client/plans")
     @Validated
     public ResponseEntity<Page<PlanResponseDTO>> getAllPlansForClient(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)

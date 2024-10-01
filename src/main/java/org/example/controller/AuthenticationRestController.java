@@ -11,15 +11,19 @@ import org.example.service.JwtBlacklistService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * A controller to handle authentication-related requests.
+ * This class handles registration, authorization, and logout requests.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class AuthenticationController {
+public class AuthenticationRestController {
 
     private final AuthenticationService service;
 
-    private final JwtBlacklistService blacklistService;
+    private final JwtBlacklistService jwtBlacklistService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponseDTO> register(@Valid @RequestBody RegisterRequestDTO request) {
@@ -43,7 +47,9 @@ public class AuthenticationController {
     public ResponseEntity<Void> logout(@RequestHeader("Authorization") String token) {
         String tokenValue = token.substring(7);
 
-        blacklistService.blacklistToken(tokenValue);
+        jwtBlacklistService.addTokenToBlacklist(tokenValue);
+
+        log.info("The User has successfully logged out. Token added to blacklist");
 
         return ResponseEntity.noContent().build();
     }

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.annotation.ExecutionTime;
 import org.example.dto.requestdto.CreateTariffRequestDTO;
 import org.example.dto.requestdto.UpdateTariffRequestDTO;
 import org.example.dto.responsedto.TariffResponseDTO;
@@ -16,13 +17,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for managing tariffs.
+ * This class provides an API for managing tariffs, including getting, creating, updating, and deleting (available only to the administrator),
+ * as well as getting a list of rates for a client.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class TariffRestController {
+
     private final TariffService tariffService;
 
+    @ExecutionTime
     @GetMapping("/admin/tariffs")
     @Validated
     public ResponseEntity<Page<TariffResponseDTO>> getAllTariffsForAdmin(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)
@@ -34,6 +42,7 @@ public class TariffRestController {
         return ResponseEntity.ok(tariffs);
     }
 
+    @ExecutionTime
     @GetMapping("/admin/tariffs/{id}")
     @Validated
     public ResponseEntity<TariffResponseDTO> getTariffByIdForAdmin(@NotNull @PathVariable Integer id) {
@@ -74,6 +83,7 @@ public class TariffRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @ExecutionTime
     @GetMapping("/client/tariffs")
     @Validated
     public ResponseEntity<Page<TariffResponseDTO>> getAllTariffsForClient(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)

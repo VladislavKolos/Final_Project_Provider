@@ -1,22 +1,14 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
+/**
+ * This interface provides methods for adding tokens to the blacklist and checking if a token
+ * is present in the blacklist.
+ */
+@Component
+public interface JwtBlacklistService {
+    void addTokenToBlacklist(String token);
 
-@Service
-@RequiredArgsConstructor
-public class JwtBlacklistService {
-
-    private final StringRedisTemplate redisTemplate;
-
-    public void blacklistToken(String token) {
-        redisTemplate.opsForValue().set(token, "blacklisted", 1, TimeUnit.HOURS);
-    }
-
-    public boolean isTokenBlacklisted(String token) {
-        return Boolean.TRUE.equals(redisTemplate.hasKey(token));
-    }
+    boolean isTokenBlacklisted(String token);
 }

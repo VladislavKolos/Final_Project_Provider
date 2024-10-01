@@ -8,6 +8,9 @@ import org.example.annotation.customannotation.NoExistStatusName;
 import org.example.repository.StatusRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * No status validator with the same name.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

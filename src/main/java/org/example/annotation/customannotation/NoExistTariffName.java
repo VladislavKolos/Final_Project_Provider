@@ -6,6 +6,9 @@ import org.example.validator.customvalidator.NoExistTariffNameValidator;
 
 import java.lang.annotation.*;
 
+/**
+ * Annotation for checking the absence of a tariff with the same name.
+ */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NoExistTariffNameValidator.class)

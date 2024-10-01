@@ -6,6 +6,9 @@ import org.example.validator.customvalidator.ExistPlanIdValidator;
 
 import java.lang.annotation.*;
 
+/**
+ * Annotation for checking the existence of a plan ID.
+ */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ExistPlanIdValidator.class)
