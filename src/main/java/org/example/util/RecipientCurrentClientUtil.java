@@ -19,7 +19,7 @@ public class RecipientCurrentClientUtil {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
-        log.info("Current Client ID for Client: " + user + " successfully retrieved");
+        log.info("Current Client ID for Client successfully retrieved");
 
         return user.getId();
     }

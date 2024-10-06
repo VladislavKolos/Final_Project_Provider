@@ -45,6 +45,7 @@ public class PlanServiceImpl implements PlanService {
      * @param id Plan ID.
      * @return The plan entity, if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public Plan getPlanEntityById(Integer id) {
         return planRepository.findById(id).orElseThrow();
@@ -57,6 +58,7 @@ public class PlanServiceImpl implements PlanService {
      * @param pageable Spring Data pagination option.
      * @return Page of `PlanResponseDTO` objects with information about plans.
      */
+    @Override
     @Transactional(readOnly = true)
     public Page<PlanResponseDTO> getAllPlans(Pageable pageable) {
         return planRepository.findAll(pageable)
@@ -71,6 +73,7 @@ public class PlanServiceImpl implements PlanService {
      * @param id Plan ID
      * @return A `PlanResponseDTO` object with plan information, if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public PlanResponseDTO getPlanById(Integer id) {
         return planRepository.findById(id)
@@ -87,6 +90,7 @@ public class PlanServiceImpl implements PlanService {
      * @param createPlanRequestDTO object `CreatePlanRequestDTO` containing information about the plan being created.
      * @return A `PlanResponseDTO` object with information about the created plan.
      */
+    @Override
     @Transactional
     public PlanResponseDTO createPlan(CreatePlanRequestDTO createPlanRequestDTO) {
         Plan plan = buildPlan(createPlanRequestDTO);
@@ -105,6 +109,7 @@ public class PlanServiceImpl implements PlanService {
      * @param updatePlanRequestDTO an `UpdatePlanRequestDTO` object containing information for updating the plan.
      * @return A `PlanResponseDTO` object with information about the updated plan.
      */
+    @Override
     @Transactional
     public PlanResponseDTO updatePlan(Integer id, UpdatePlanRequestDTO updatePlanRequestDTO) {
         Plan plan = planRepository.findById(id)
@@ -125,6 +130,7 @@ public class PlanServiceImpl implements PlanService {
      *
      * @param id Plan ID
      */
+    @Override
     @Transactional
     public void deletePlan(Integer id) {
         Plan plan = planRepository.findById(id)

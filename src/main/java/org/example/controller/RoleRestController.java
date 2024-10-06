@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +25,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin/roles")
 @RequiredArgsConstructor
+@Tag(name = "Roles", description = "Operations related to managing roles (Admin)")
 public class RoleRestController {
 
     private final RoleService roleService;
 
     @ExecutionTime
     @GetMapping
+    @Operation(summary = "Get all roles", description = "Retrieves a list of all roles")
     public ResponseEntity<List<RoleResponseDTO>> getAllRoles() {
         List<RoleResponseDTO> rolesList = roleService.getAllRoles();
 
@@ -39,6 +44,8 @@ public class RoleRestController {
     @ExecutionTime
     @GetMapping("/{id}")
     @Validated
+    @Operation(summary = "Get a role by ID", description = "Retrieves a role by its unique identifier")
+    @Parameter(name = "id", description = "Unique identifier of the role")
     public ResponseEntity<RoleResponseDTO> getRoleById(@NotNull @PathVariable Integer id) {
         RoleResponseDTO roleResponseDTO = roleService.getRoleById(id);
 
@@ -48,6 +55,7 @@ public class RoleRestController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a new role", description = "Creates a new role")
     public ResponseEntity<RoleResponseDTO> createRole(@Valid @RequestBody RoleRequestDTO roleRequestDTO) {
         RoleResponseDTO roleResponseDTO = roleService.createRole(roleRequestDTO);
 
@@ -58,6 +66,8 @@ public class RoleRestController {
 
     @PutMapping("/{id}")
     @Validated
+    @Operation(summary = "Update a role", description = "Updates a role by its ID")
+    @Parameter(name = "id", description = "Unique identifier of the role")
     public ResponseEntity<RoleResponseDTO> updateRole(@NotNull @PathVariable Integer id,
                                                       @Valid @RequestBody RoleRequestDTO roleRequestDTO) {
 
@@ -70,6 +80,8 @@ public class RoleRestController {
 
     @DeleteMapping("/{id}")
     @Validated
+    @Operation(summary = "Delete a role", description = "Deletes a role by its ID")
+    @Parameter(name = "id", description = "Unique identifier of the role")
     public ResponseEntity<Void> deleteRole(@NotNull @PathVariable Integer id) {
         roleService.deleteRole(id);
 

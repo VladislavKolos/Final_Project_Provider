@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.annotation.customannotation.NoExistPlanName;
 
 import java.time.LocalDate;
 
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UpdatePlanRequestDTO {
 
-    @NoExistPlanName
     @Size(min = 1, max = 50)
     private String name;
 

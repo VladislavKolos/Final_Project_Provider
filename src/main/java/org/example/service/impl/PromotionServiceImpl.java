@@ -43,6 +43,7 @@ public class PromotionServiceImpl implements PromotionService {
      * @param id Promotion ID
      * @return The promotion entity, if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public Promotion getPromotionEntityById(Integer id) {
         return promotionRepository.findById(id).orElseThrow();
@@ -55,6 +56,7 @@ public class PromotionServiceImpl implements PromotionService {
      * @param pageable Spring Data pagination option.
      * @return Page of `PromotionResponseDTO` objects with information about promotions.
      */
+    @Override
     @Transactional(readOnly = true)
     public Page<PromotionResponseDTO> getAllPromotions(Pageable pageable) {
         return promotionRepository.findAll(pageable)
@@ -69,6 +71,7 @@ public class PromotionServiceImpl implements PromotionService {
      * @param id Promotion ID
      * @return A `PromotionResponseDTO` object containing information about the promotion, or a `ProviderNotFoundException` if the promotion was not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public PromotionResponseDTO getPromotionById(Integer id) {
         return promotionRepository.findById(id)
@@ -86,6 +89,7 @@ public class PromotionServiceImpl implements PromotionService {
      * @param createPromotionRequestDTO object `CreatePromotionRequestDTO` containing information about the promotion being created.
      * @return A `PromotionResponseDTO` object with information about the created promotion.
      */
+    @Override
     @Transactional
     public PromotionResponseDTO createPromotion(CreatePromotionRequestDTO createPromotionRequestDTO) {
         return Optional.of(createPromotionRequestDTO)
@@ -104,6 +108,7 @@ public class PromotionServiceImpl implements PromotionService {
      * @param updatePromotionRequestDTO an `UpdatePromotionRequestDTO` object containing information for updating the promotion.
      * @return A `PromotionResponseDTO` object with information about the updated promotion.
      */
+    @Override
     @Transactional
     public PromotionResponseDTO updatePromotion(Integer id, UpdatePromotionRequestDTO updatePromotionRequestDTO) {
         Promotion promotion = promotionRepository.findById(id)
@@ -125,6 +130,7 @@ public class PromotionServiceImpl implements PromotionService {
      *
      * @param id Promotion ID
      */
+    @Override
     @Transactional
     public void deletePromotion(Integer id) {
         Promotion promotion = promotionRepository.findById(id)

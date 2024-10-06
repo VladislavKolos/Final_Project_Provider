@@ -40,6 +40,7 @@ public class TariffServiceImpl implements TariffService {
      * @param id Tariff ID
      * @return The tariff entity, or throws an exception if not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public Tariff getTariffEntityById(Integer id) {
         return tariffRepository.findById(id).orElseThrow();
@@ -52,6 +53,7 @@ public class TariffServiceImpl implements TariffService {
      * @param pageable The pagination parameters.
      * @return A page of `TariffResponseDTO` objects representing all tariffs.
      */
+    @Override
     @Transactional(readOnly = true)
     public Page<TariffResponseDTO> getAllTariffs(Pageable pageable) {
         return tariffRepository.findAll(pageable)
@@ -65,6 +67,7 @@ public class TariffServiceImpl implements TariffService {
      * @param id Tariff ID
      * @return The tariff as a response DTO.
      */
+    @Override
     @Transactional(readOnly = true)
     public TariffResponseDTO getTariffById(Integer id) {
         return tariffRepository.findById(id)
@@ -82,6 +85,7 @@ public class TariffServiceImpl implements TariffService {
      * @param tariffRequestDTO The DTO containing the information for the new tariff.
      * @return The created tariff as a response DTO.
      */
+    @Override
     @Transactional
     public TariffResponseDTO createTariff(CreateTariffRequestDTO tariffRequestDTO) {
         return Optional.of(tariffRequestDTO)
@@ -99,6 +103,7 @@ public class TariffServiceImpl implements TariffService {
      * @param updateTariffRequestDTO The DTO containing the updated tariff information.
      * @return The updated tariff as a response DTO.
      */
+    @Override
     @Transactional
     public TariffResponseDTO updateTariff(Integer id, UpdateTariffRequestDTO updateTariffRequestDTO) {
         Tariff tariff = tariffRepository.findById(id)
@@ -120,6 +125,7 @@ public class TariffServiceImpl implements TariffService {
      *
      * @param id Tariff ID
      */
+    @Override
     @Transactional
     public void deleteTariff(Integer id) {
         Tariff tariff = tariffRepository.findById(id)

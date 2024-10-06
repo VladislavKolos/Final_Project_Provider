@@ -40,6 +40,7 @@ public class StatusServiceImpl implements StatusService {
      * @param id Status ID
      * @return The status entity, if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public Status getStatusEntityById(Integer id) {
         return statusRepository.findById(id).orElseThrow();
@@ -51,6 +52,7 @@ public class StatusServiceImpl implements StatusService {
      *
      * @return A list of `StatusResponseDTO` objects with information about all statuses.
      */
+    @Override
     @Transactional(readOnly = true)
     public List<StatusResponseDTO> getAllStatuses() {
         return statusRepository.findAll()
@@ -67,6 +69,7 @@ public class StatusServiceImpl implements StatusService {
      * @param id Status ID
      * @return A `StatusResponseDTO` object with status information if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public StatusResponseDTO getStatusById(Integer id) {
         return statusRepository.findById(id)
@@ -85,6 +88,7 @@ public class StatusServiceImpl implements StatusService {
      * @param statusRequestDTO The DTO containing the information for the new status.
      * @return The newly created status as a response DTO.
      */
+    @Override
     @Transactional
     public StatusResponseDTO createStatus(StatusRequestDTO statusRequestDTO) {
         return Optional.of(statusRequestDTO)
@@ -102,6 +106,7 @@ public class StatusServiceImpl implements StatusService {
      * @param statusRequestDTO The DTO containing the updated status information.
      * @return The updated status as a response DTO.
      */
+    @Override
     @Transactional
     public StatusResponseDTO updateStatus(Integer id, StatusRequestDTO statusRequestDTO) {
         Status status = statusRepository.findById(id)
@@ -123,6 +128,7 @@ public class StatusServiceImpl implements StatusService {
      *
      * @param id Status ID
      */
+    @Override
     @Transactional
     public void deleteStatus(Integer id) {
         Status status = statusRepository.findById(id)
@@ -140,6 +146,7 @@ public class StatusServiceImpl implements StatusService {
      * @param name The name of the status to find.
      * @return An optional containing the status if found, or empty if not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public Optional<Status> getStatusByName(String name) {
         return statusRepository.findByName(name);

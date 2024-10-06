@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Tag(name = "Tariffs", description = "Operations related to managing tariffs (Admin and Client)")
 public class TariffRestController {
 
     private final TariffService tariffService;
@@ -33,6 +37,8 @@ public class TariffRestController {
     @ExecutionTime
     @GetMapping("/admin/tariffs")
     @Validated
+    @Operation(summary = "Get all tariffs for Admin (paginated)", description = "Retrieves a paginated list of all tariffs (for Admin)")
+    @Parameter(name = "pageable", description = "Pagination information (optional, default: page=0, size=5, sort=name,asc)")
     public ResponseEntity<Page<TariffResponseDTO>> getAllTariffsForAdmin(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)
                                                                          Pageable pageable) {
         Page<TariffResponseDTO> tariffs = tariffService.getAllTariffs(pageable);
@@ -45,6 +51,8 @@ public class TariffRestController {
     @ExecutionTime
     @GetMapping("/admin/tariffs/{id}")
     @Validated
+    @Operation(summary = "Get a tariff by ID for Admin", description = "Retrieves a tariff by its unique identifier (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the tariff")
     public ResponseEntity<TariffResponseDTO> getTariffByIdForAdmin(@NotNull @PathVariable Integer id) {
         TariffResponseDTO tariffResponseDTO = tariffService.getTariffById(id);
 
@@ -54,6 +62,7 @@ public class TariffRestController {
     }
 
     @PostMapping("/admin/tariffs")
+    @Operation(summary = "Create a new tariff (Admin)", description = "Creates a new tariff (for Admin)")
     public ResponseEntity<TariffResponseDTO> createTariff(@Valid @RequestBody CreateTariffRequestDTO createTariffRequestDTO) {
         TariffResponseDTO tariffResponseDTO = tariffService.createTariff(createTariffRequestDTO);
 
@@ -64,6 +73,8 @@ public class TariffRestController {
 
     @PutMapping("/admin/tariffs/{id}")
     @Validated
+    @Operation(summary = "Update a tariff (Admin)", description = "Updates a tariff by its ID (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the tariff")
     public ResponseEntity<TariffResponseDTO> updateTariff(@NotNull @PathVariable Integer id,
                                                           @Valid @RequestBody UpdateTariffRequestDTO updateTariffRequestDTO) {
         TariffResponseDTO tariffResponseDTO = tariffService.updateTariff(id, updateTariffRequestDTO);
@@ -75,6 +86,8 @@ public class TariffRestController {
 
     @DeleteMapping("/admin/tariffs/{id}")
     @Validated
+    @Operation(summary = "Delete a tariff (Admin)", description = "Deletes a tariff by its ID (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the tariff")
     public ResponseEntity<Void> deleteTariff(@NotNull @PathVariable Integer id) {
         tariffService.deleteTariff(id);
 
@@ -86,6 +99,8 @@ public class TariffRestController {
     @ExecutionTime
     @GetMapping("/client/tariffs")
     @Validated
+    @Operation(summary = "Get all tariffs for Client (paginated)", description = "Retrieves a paginated list of all tariffs (for Client)")
+    @Parameter(name = "pageable", description = "Pagination information (optional, default: page=0, size=5, sort=name,asc)")
     public ResponseEntity<Page<TariffResponseDTO>> getAllTariffsForClient(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)
                                                                           Pageable pageable) {
         Page<TariffResponseDTO> tariffs = tariffService.getAllTariffs(pageable);
@@ -93,5 +108,18 @@ public class TariffRestController {
         log.info("Tariffs for Client successfully received");
 
         return ResponseEntity.ok(tariffs);
+    }
+
+    @ExecutionTime
+    @GetMapping("/client/tariffs/{id}")
+    @Validated
+    @Operation(summary = "Get a tariff by ID for Client", description = "Retrieves a tariff by its unique identifier (for Client)")
+    @Parameter(name = "id", description = "Unique identifier of the tariff")
+    public ResponseEntity<TariffResponseDTO> getTariffByIdForClient(@NotNull @PathVariable Integer id) {
+        TariffResponseDTO tariffResponseDTO = tariffService.getTariffById(id);
+
+        log.info("Tariff: " + id + " for Client successfully received");
+
+        return ResponseEntity.ok(tariffResponseDTO);
     }
 }

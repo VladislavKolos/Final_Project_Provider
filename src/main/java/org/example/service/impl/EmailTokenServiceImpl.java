@@ -36,16 +36,20 @@ public class EmailTokenServiceImpl implements EmailTokenService {
     @Value("${app.email.confirmation.url}")
     private String confirmationUrl;
 
+    @Value("${app.email}")
+    private String appEmail;
+
     /**
      * Send a confirmation email to the user.
      *
      * @param user     The user to whom the letter should be sent.
      * @param newEmail The user's new email address.
      */
+    @Override
     @Transactional
-    public void sendConfirmationEmail(User user, String newEmail) {
+    public void sendConfirmationEmail(User user, String newEmail, String newUsername, String newPhone) {
         String token = UUID.randomUUID().toString();
-        EmailToken emailToken = createEmailToken(user, token, newEmail);
+        EmailToken emailToken = createEmailToken(user, token, newEmail, newUsername, newPhone);
         emailTokenRepository.save(emailToken);
 
         String link = confirmationUrl + "?token=" + token;
@@ -61,6 +65,7 @@ public class EmailTokenServiceImpl implements EmailTokenService {
      * @param token Search token
      * @return An `EmailToken` object if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public EmailToken findByToken(String token) {
         return emailTokenRepository.findByToken(token)
@@ -76,10 +81,12 @@ public class EmailTokenServiceImpl implements EmailTokenService {
      * @param token Email verification token.
      * @return EmailToken - confirmation token object.
      */
-    private EmailToken createEmailToken(User user, String token, String email) {
+    private EmailToken createEmailToken(User user, String token, String email, String username, String phone) {
         EmailToken emailToken = new EmailToken();
         emailToken.setToken(token);
         emailToken.setEmail(email);
+        emailToken.setUsername(username);
+        emailToken.setPhone(phone);
         emailToken.setUser(user);
         emailToken.setExpiryDate(LocalDateTime.now().plusMinutes(ProviderConstantUtil.ADDITIONAL_MINUTES));
 
@@ -98,6 +105,7 @@ public class EmailTokenServiceImpl implements EmailTokenService {
         simpleMailMessage.setTo(newEmail);
         simpleMailMessage.setSubject("Confirmation of email change");
         simpleMailMessage.setText(message);
+        simpleMailMessage.setFrom(appEmail);
 
         return simpleMailMessage;
     }

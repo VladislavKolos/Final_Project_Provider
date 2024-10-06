@@ -51,6 +51,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      *
      * @return A list of `SubscriptionResponseDTO` objects representing all subscriptions.
      */
+    @Override
     @Transactional(readOnly = true)
     public List<SubscriptionResponseDTO> getAllSubscriptions() {
         return subscriptionRepository.findAll()
@@ -67,6 +68,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param id Subscription ID
      * @return The `SubscriptionResponseDTO` representing the found subscription.
      */
+    @Override
     @Transactional(readOnly = true)
     public SubscriptionResponseDTO getSubscriptionById(Integer id) {
         return subscriptionRepository.findById(id)
@@ -85,6 +87,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param id The ID of the Client.
      * @return The `SubscriptionResponseDTO` representing the found subscription.
      */
+    @Override
     @Transactional(readOnly = true)
     public SubscriptionResponseDTO getSubscriptionByClientIdAndStatus(Integer id) {
         return subscriptionRepository.findByUserIdAndStatus(id, ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED)
@@ -99,6 +102,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param createSubscriptionRequestDTO createSubscriptionRequestDTO A DTO containing the details for the new subscription.
      * @return The created subscription as a response DTO.
      */
+    @Override
     @Transactional
     public SubscriptionResponseDTO createSubscription(CreateSubscriptionRequestDTO createSubscriptionRequestDTO) {
         Subscription subscription = buildSubscription(createSubscriptionRequestDTO.getStatus(),
@@ -119,6 +123,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param updateSubscriptionRequestDTO A DTO containing the updated subscription details.
      * @return The updated subscription as a response DTO.
      */
+    @Override
     @Transactional
     public SubscriptionResponseDTO updateSubscription(Integer id,
                                                       UpdateSubscriptionRequestDTO updateSubscriptionRequestDTO) {
@@ -142,6 +147,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      *
      * @param id Subscription ID
      */
+    @Override
     @Transactional
     public void deleteSubscription(Integer id) {
         Subscription subscription = subscriptionRepository.findById(id)
@@ -164,6 +170,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param planId The ID of the plan to subscribe to.
      * @return The created subscription as a response DTO.
      */
+    @Override
     @Transactional
     public SubscriptionResponseDTO subscribeToPlan(Integer userId, Integer planId) {
         Subscription subscription = buildSubscription(ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED,
@@ -188,6 +195,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param newPlanId The ID of the new plan to subscribe to.
      * @return The updated subscription as a response DTO.
      */
+    @Override
     @Transactional
     public SubscriptionResponseDTO updateSubscriptionForClient(Integer userId, Integer newPlanId) {
         Subscription currentSubscription = subscriptionRepository.findByUserIdAndStatus(userId,
@@ -220,6 +228,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      *
      * @param userId userId The ID of the user whose subscription needs to be cancelled.
      */
+    @Override
     @Transactional
     public void cancelSubscription(Integer userId) {
         Subscription subscription = subscriptionRepository.findByUserIdAndStatus(userId,

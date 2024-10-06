@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.annotation.customannotation.UniqueSubscription;
 import org.example.repository.SubscriptionRepository;
+import org.example.util.ProviderConstantUtil;
 import org.example.util.RecipientCurrentClientUtil;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +22,8 @@ public class UniqueSubscriptionValidator implements ConstraintValidator<UniqueSu
 
     @Override
     public boolean isValid(Integer planId, ConstraintValidatorContext context) {
-        if (planId != null && subscriptionRepository.existsByUserIdAndPlanId(RecipientCurrentClientUtil.getCurrentClientId(),
-                planId)) {
+        if (planId != null && subscriptionRepository.existsByUserIdAndPlanIdAndStatus(RecipientCurrentClientUtil.getCurrentClientId(),
+                planId, ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED)) {
             log.info("User is already subscribed to this plan: " + planId);
             return false;
         }

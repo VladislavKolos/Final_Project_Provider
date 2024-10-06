@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param user The user entity to be saved.
      */
+    @Override
     @Transactional
     public void save(User user) {
         userRepository.save(user);
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
      * @param id User ID
      * @return The user entity, or throws an exception if not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public User getUserEntityById(Integer id) {
         return userRepository.findById(id).orElseThrow();
@@ -87,6 +89,7 @@ public class UserServiceImpl implements UserService {
      * @param username The username to search for.
      * @return An `Optional<User>` containing the user if found, or empty if not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -99,6 +102,7 @@ public class UserServiceImpl implements UserService {
      * @param email The email to search for.
      * @return An `Optional<User>` containing the user if found, or empty if not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public Optional<User> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -111,6 +115,7 @@ public class UserServiceImpl implements UserService {
      * @param phone The phone to search for.
      * @return An `Optional<User>` containing the user if found, or empty if not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public Optional<User> findUserByPhone(String phone) {
         return userRepository.findByPhone(phone);
@@ -121,12 +126,10 @@ public class UserServiceImpl implements UserService {
      *
      * @return A list of `UserResponseDTO` objects representing all users.
      */
+    @Override
     @Transactional(readOnly = true)
     public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toUserResponseDTO)
-                .toList();
+        return userRepository.findAll().stream().map(userMapper::toUserResponseDTO).toList();
     }
 
     /**
@@ -136,12 +139,12 @@ public class UserServiceImpl implements UserService {
      * @param id User ID
      * @return The user as a response DTO, or throws an exception if not found.
      */
+    @Override
     @Transactional(readOnly = true)
     public UserResponseDTO getUserById(Integer id) {
         return userRepository.findById(id)
                 .map(userMapper::toUserResponseDTO)
-                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage(
-                        "user.error.not_found.by_id",
+                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage("user.error.not_found.by_id",
                         new Object[]{id},
                         LocaleContextHolder.getLocale())));
     }
@@ -153,33 +156,28 @@ public class UserServiceImpl implements UserService {
      * @param createUserRequestDTO The DTO containing the information for the new user.
      * @return The created user as a response DTO.
      */
+    @Override
     @Transactional
     public UserResponseDTO createUser(CreateUserRequestDTO createUserRequestDTO) {
         if (userRequestDTOValidator.existsUsername(createUserRequestDTO.getUsername())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.username_exists",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.username_exists",
                     new Object[]{createUserRequestDTO.getUsername()},
                     LocaleContextHolder.getLocale()));
 
         } else if (userRequestDTOValidator.existsEmail(createUserRequestDTO.getEmail())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.email_exists",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.email_exists",
                     new Object[]{createUserRequestDTO.getEmail()},
                     LocaleContextHolder.getLocale()));
 
         } else if (userRequestDTOValidator.existsPhone(createUserRequestDTO.getPhone())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.phone_exists",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.phone_exists",
                     new Object[]{createUserRequestDTO.getPhone()},
                     LocaleContextHolder.getLocale()));
         }
 
         User user = buildUser(createUserRequestDTO);
 
-        return Optional.of(user)
-                .map(userRepository::save)
-                .map(userMapper::toUserResponseDTO)
-                .orElseThrow();
+        return Optional.of(user).map(userRepository::save).map(userMapper::toUserResponseDTO).orElseThrow();
     }
 
     /**
@@ -190,39 +188,36 @@ public class UserServiceImpl implements UserService {
      * @param userRequestDTO The DTO containing the updated user information.
      * @return The updated user as a response DTO.
      */
+    @Override
     @Transactional
     public UserResponseDTO updateUserByIdForAdmin(Integer id, UpdateUserRequestDTO userRequestDTO) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage(
-                        "user.error.not_found.by_id",
+                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage("user.error.not_found.by_id",
                         new Object[]{id},
                         LocaleContextHolder.getLocale())));
 
-        if (userRequestDTOValidator.existsUsername(userRequestDTO.getUsername())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.username_exists",
+        if (userRequestDTOValidator.existsUsername(userRequestDTO.getUsername()) && !user.getUsername()
+                .equals(userRequestDTO.getUsername())) {
+            throw new ProviderConflictException(messageSource.getMessage("user.error.username_exists",
                     new Object[]{userRequestDTO.getUsername()},
                     LocaleContextHolder.getLocale()));
 
-        } else if (userRequestDTOValidator.existsEmail(userRequestDTO.getEmail())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.email_exists",
+        } else if (userRequestDTOValidator.existsEmail(userRequestDTO.getEmail()) && !user.getEmail()
+                .equals(userRequestDTO.getEmail())) {
+            throw new ProviderConflictException(messageSource.getMessage("user.error.email_exists",
                     new Object[]{userRequestDTO.getEmail()},
                     LocaleContextHolder.getLocale()));
 
-        } else if (userRequestDTOValidator.existsPhone(userRequestDTO.getPhone())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.phone_exists",
+        } else if (userRequestDTOValidator.existsPhone(userRequestDTO.getPhone()) && !user.getPhone()
+                .equals(userRequestDTO.getPhone())) {
+            throw new ProviderConflictException(messageSource.getMessage("user.error.phone_exists",
                     new Object[]{userRequestDTO.getPhone()},
                     LocaleContextHolder.getLocale()));
         }
 
         setUser(user, userRequestDTO);
 
-        return Optional.of(user)
-                .map(userRepository::save)
-                .map(userMapper::toUserResponseDTO)
-                .orElseThrow();
+        return Optional.of(user).map(userRepository::save).map(userMapper::toUserResponseDTO).orElseThrow();
     }
 
     /**
@@ -232,24 +227,22 @@ public class UserServiceImpl implements UserService {
      * @param id                       The ID of the User whose password needs to be changed.
      * @param passwordChangeRequestDTO The DTO containing the old password and new password information.
      */
+    @Override
     @Transactional
     public void changePassword(Integer id, PasswordChangeRequestDTO passwordChangeRequestDTO) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage(
-                        "user.error.not_found.by_id",
+                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage("user.error.not_found.by_id",
                         new Object[]{id},
                         LocaleContextHolder.getLocale())));
 
         if (!passwordEncoder.matches(passwordChangeRequestDTO.getOldPassword(), user.getPassword())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.old_password_incorrect",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.old_password_incorrect",
                     null,
                     LocaleContextHolder.getLocale()));
         }
 
         if (!passwordChangeRequestDTO.getNewPassword().equals(passwordChangeRequestDTO.getConfirmNewPassword())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.passwords_do_not_match",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.passwords_do_not_match",
                     null,
                     LocaleContextHolder.getLocale()));
         }
@@ -266,44 +259,35 @@ public class UserServiceImpl implements UserService {
      * @param id                      The ID of the User whose profile needs to be updated.
      * @param profileUpdateRequestDTO The DTO containing the updated profile information.
      */
+    @Override
     @Transactional
     public void updateProfile(Integer id, ProfileUpdateRequestDTO profileUpdateRequestDTO) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage(
-                        "user.error.not_found.by_id",
+                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage("user.error.not_found.by_id",
                         new Object[]{id},
                         LocaleContextHolder.getLocale())));
 
         if (userRequestDTOValidator.existsUsername(profileUpdateRequestDTO.getUsername())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.username_exists",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.username_exists",
                     new Object[]{profileUpdateRequestDTO.getUsername()},
                     LocaleContextHolder.getLocale()));
 
         } else if (userRequestDTOValidator.existsEmail(profileUpdateRequestDTO.getEmail())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.email_exists",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.email_exists",
                     new Object[]{profileUpdateRequestDTO.getEmail()},
                     LocaleContextHolder.getLocale()));
 
         } else if (userRequestDTOValidator.existsPhone(profileUpdateRequestDTO.getPhone())) {
-            throw new ProviderConflictException(messageSource.getMessage(
-                    "user.error.phone_exists",
+            throw new ProviderConflictException(messageSource.getMessage("user.error.phone_exists",
                     new Object[]{profileUpdateRequestDTO.getPhone()},
                     LocaleContextHolder.getLocale()));
         }
 
-        if (profileUpdateRequestDTO.getUsername() != null) {
-            user.setUsername(profileUpdateRequestDTO.getUsername());
-        }
+        String email = (profileUpdateRequestDTO.getEmail() != null) ? profileUpdateRequestDTO.getEmail() : user.getEmail();
+        String username = (profileUpdateRequestDTO.getUsername() != null) ? profileUpdateRequestDTO.getUsername() : user.getUsername();
+        String phone = (profileUpdateRequestDTO.getPhone() != null) ? profileUpdateRequestDTO.getPhone() : user.getPhone();
 
-        if (profileUpdateRequestDTO.getEmail() != null) {
-            emailTokenService.sendConfirmationEmail(user, profileUpdateRequestDTO.getEmail());
-        }
-
-        if (profileUpdateRequestDTO.getPhone() != null) {
-            user.setPhone(profileUpdateRequestDTO.getPhone());
-        }
+        emailTokenService.sendConfirmationEmail(user, email, username, phone);
 
         userRepository.save(user);
     }
@@ -313,11 +297,11 @@ public class UserServiceImpl implements UserService {
      *
      * @param id User ID
      */
+    @Override
     @Transactional
     public void deleteUser(Integer id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage(
-                        "user.error.not_found.by_id",
+                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage("user.error.not_found.by_id",
                         new Object[]{id},
                         LocaleContextHolder.getLocale())));
 
@@ -331,11 +315,11 @@ public class UserServiceImpl implements UserService {
      * @param id         The ID of the User whose status needs to be updated.
      * @param statusName The name of the new status for the user.
      */
+    @Override
     @Transactional
     public void updateUserStatus(Integer id, String statusName) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage(
-                        "user.error.not_found.by_id",
+                .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage("user.error.not_found.by_id",
                         new Object[]{id},
                         LocaleContextHolder.getLocale())));
 
@@ -356,13 +340,13 @@ public class UserServiceImpl implements UserService {
      *
      * @param token token The confirmation token string received by the user.
      */
+    @Override
     @Transactional
     public void confirmEmail(String token) {
         EmailToken emailToken = emailTokenService.findByToken(token);
 
         if (emailToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new ProviderTokenException(messageSource.getMessage(
-                    "auth.error.token_expired",
+            throw new ProviderTokenException(messageSource.getMessage("auth.error.token_expired",
                     null,
                     LocaleContextHolder.getLocale()));
         }
@@ -370,6 +354,8 @@ public class UserServiceImpl implements UserService {
         User user = emailToken.getUser();
 
         user.setEmail(emailToken.getEmail());
+        user.setUsername(emailToken.getUsername());
+        user.setPhone(emailToken.getPhone());
         userRepository.save(user);
     }
 

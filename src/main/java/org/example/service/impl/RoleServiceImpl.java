@@ -40,6 +40,7 @@ public class RoleServiceImpl implements RoleService {
      * @param id Role ID
      * @return The role entity, if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public Role getRoleEntityById(Integer id) {
         return roleRepository.findById(id).orElseThrow();
@@ -51,6 +52,7 @@ public class RoleServiceImpl implements RoleService {
      *
      * @return A list of `RoleResponseDTO` objects with information about all roles.
      */
+    @Override
     @Transactional(readOnly = true)
     public List<RoleResponseDTO> getAllRoles() {
         return roleRepository.findAll()
@@ -67,6 +69,7 @@ public class RoleServiceImpl implements RoleService {
      * @param id Role ID
      * @return A `RoleResponseDTO` object with information about the role, if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public RoleResponseDTO getRoleById(Integer id) {
         return roleRepository.findById(id)
@@ -84,6 +87,7 @@ public class RoleServiceImpl implements RoleService {
      * @param roleRequestDTO DTO object `RoleRequestDTO` containing information about the role being created.
      * @return A `RoleResponseDTO` object containing information about the created role.
      */
+    @Override
     @Transactional
     public RoleResponseDTO createRole(RoleRequestDTO roleRequestDTO) {
         return Optional.of(roleRequestDTO)
@@ -101,6 +105,7 @@ public class RoleServiceImpl implements RoleService {
      * @param roleRequestDTO DTO object `RoleRequestDTO` containing information for updating the role.
      * @return A `RoleResponseDTO` object with information about the updated role.
      */
+    @Override
     @Transactional
     public RoleResponseDTO updateRole(Integer id, RoleRequestDTO roleRequestDTO) {
         Role role = roleRepository.findById(id)
@@ -122,6 +127,7 @@ public class RoleServiceImpl implements RoleService {
      *
      * @param id Role ID
      */
+    @Override
     @Transactional
     public void deleteRole(Integer id) {
         Role role = roleRepository.findById(id)

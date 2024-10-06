@@ -49,6 +49,7 @@ public class PromotionTariffServiceImpl implements PromotionTariffService {
      * @param pageable Spring Data pagination option.
      * @return Page of `PromotionTariffResponseDTO` objects with information about promotional tariffs.
      */
+    @Override
     @Transactional(readOnly = true)
     public Page<PromotionTariffResponseDTO> getAllPromotionsTariffs(Pageable pageable) {
         return promotionTariffRepository.findAll(pageable).map(promotionTariffMapper::toPromotionTariffResponseDTO);
@@ -62,6 +63,7 @@ public class PromotionTariffServiceImpl implements PromotionTariffService {
      * @param id PromotionTariff ID
      * @return A `PromotionTariffResponseDTO` object with information about the promotional tariff, if found, otherwise an exception is thrown.
      */
+    @Override
     @Transactional(readOnly = true)
     public PromotionTariffResponseDTO getPromotionTariffById(Integer id) {
         return promotionTariffRepository.findById(id)
@@ -79,6 +81,7 @@ public class PromotionTariffServiceImpl implements PromotionTariffService {
      * @param createPromotionTariffRequestDTO DTO object `CreatePromotionTariffRequestDTO` containing information about the promotional tariff being created.
      * @return `PromotionTariffResponseDTO` object with information about the created promotional tariff.
      */
+    @Override
     @Transactional
     public PromotionTariffResponseDTO createPromotionTariff(CreatePromotionTariffRequestDTO createPromotionTariffRequestDTO) {
 
@@ -99,6 +102,7 @@ public class PromotionTariffServiceImpl implements PromotionTariffService {
      * @param updatePromotionTariffRequestDTO DTO object `UpdatePromotionTariffRequestDTO` containing information for updating the promotional tariff
      * @return `PromotionTariffResponseDTO` object with information about the updated promotional tariff.
      */
+    @Override
     @Transactional
     public PromotionTariffResponseDTO updatePromotionTariff(Integer id,
                                                             UpdatePromotionTariffRequestDTO updatePromotionTariffRequestDTO) {
@@ -122,6 +126,7 @@ public class PromotionTariffServiceImpl implements PromotionTariffService {
      *
      * @param id PromotionTariff ID
      */
+    @Override
     @Transactional
     public void deletePromotionTariff(Integer id) {
         PromotionTariff promotionTariff = promotionTariffRepository.findById(id)

@@ -25,7 +25,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
-        log.error("RuntimeException: " + e);
+        log.error("RuntimeException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.runtime",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -33,7 +33,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> handleNullPointerException(NullPointerException e) {
-        log.error("NullPointerException: " + e);
+        log.error("NullPointerException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.null_pointer",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -41,7 +41,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(IOException.class)
     public ResponseEntity<String> handleIOException(IOException e) {
-        log.error("IOException: " + e);
+        log.error("IOException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.io",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,7 +49,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(ServletException.class)
     public ResponseEntity<String> handleServletException(ServletException e) {
-        log.error("ServletException: " + e);
+        log.error("ServletException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.servlet",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -57,15 +57,23 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
-        log.error("IllegalArgumentException: " + e);
+        log.error("IllegalArgumentException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.illegal_argument",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ProviderAccessDeniedException.class)
+    public ResponseEntity<String> handleProviderAccessDeniedException(ProviderAccessDeniedException e) {
+        log.error("ProviderAccessDeniedException: ", e);
+        return new ResponseEntity<>(messageSource.getMessage("error.general.access_denied",
+                null,
+                LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(ProviderBannedException.class)
     public ResponseEntity<String> handleProviderBannedException(ProviderBannedException e) {
-        log.error("ProviderBannedException: " + e);
+        log.error("ProviderBannedException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.banned_provider",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.FORBIDDEN);
@@ -73,7 +81,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(ProviderTokenException.class)
     public ResponseEntity<String> handleProviderTokenException(ProviderTokenException e) {
-        log.error("ProviderTokenException: " + e);
+        log.error("ProviderTokenException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.token_exception",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.UNAUTHORIZED);
@@ -81,7 +89,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(ProviderNotFoundException.class)
     public ResponseEntity<String> handleProviderNotFoundException(ProviderNotFoundException e) {
-        log.error("ProviderNotFoundException: " + e);
+        log.error("ProviderNotFoundException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.not_found",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.NOT_FOUND);
@@ -97,7 +105,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(ProviderMethodExecutionException.class)
     public ResponseEntity<String> handleProviderMethodExecutionException(ProviderMethodExecutionException e) {
-        log.error("ProviderMethodExecutionException: " + e);
+        log.error("ProviderMethodExecutionException: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.execution_error",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(),
@@ -107,7 +115,7 @@ public class ProviderExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleAnotherException(Exception e) {
-        log.error("Exception: " + e);
+        log.error("Exception: ", e);
         return new ResponseEntity<>(messageSource.getMessage("error.general.error_occurred",
                 null,
                 LocaleContextHolder.getLocale()) + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

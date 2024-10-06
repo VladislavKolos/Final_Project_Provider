@@ -13,11 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProfileUpdateRequestDTO {
 
-    @Size(min = 3, max = 32)
-    private String username;
-
     @Email
     private String email;
+
+    @Size(min = 3, max = 32)
+    private String username;
 
     @Size(min = 10, max = 18)
     private String phone;

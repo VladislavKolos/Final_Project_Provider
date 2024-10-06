@@ -48,7 +48,10 @@ CREATE TABLE email_token
     email_token_id SERIAL PRIMARY KEY,
     token          VARCHAR(256) NOT NULL UNIQUE,
     expiry_date    TIMESTAMP    NOT NULL,
-    user_id        INT REFERENCES "user" (user_id) ON DELETE CASCADE
+    user_id        INT REFERENCES "user" (user_id) ON DELETE CASCADE,
+    email          VARCHAR(255) NOT NULL,
+    username       VARCHAR(32)  NOT NULL,
+    phone          VARCHAR(18)  NOT NULL
 );
 
 CREATE TABLE "plan"

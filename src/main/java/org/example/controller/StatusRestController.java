@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +25,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin/statuses")
 @RequiredArgsConstructor
+@Tag(name = "Statuses", description = "Operations related to managing statuses (Admin)")
 public class StatusRestController {
 
     private final StatusService statusService;
 
     @ExecutionTime
     @GetMapping
+    @Operation(summary = "Get all statuses", description = "Retrieves a list of all statuses")
     public ResponseEntity<List<StatusResponseDTO>> getAllStatuses() {
         List<StatusResponseDTO> statusesList = statusService.getAllStatuses();
 
@@ -39,6 +44,8 @@ public class StatusRestController {
     @ExecutionTime
     @GetMapping("/{id}")
     @Validated
+    @Operation(summary = "Get a status by ID", description = "Retrieves a status by its unique identifier")
+    @Parameter(name = "id", description = "Unique identifier of the status")
     public ResponseEntity<StatusResponseDTO> getStatusById(@NotNull @PathVariable Integer id) {
         StatusResponseDTO statusResponseDTO = statusService.getStatusById(id);
 
@@ -48,6 +55,7 @@ public class StatusRestController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a new status", description = "Creates a new status")
     public ResponseEntity<StatusResponseDTO> createStatus(@Valid @RequestBody StatusRequestDTO statusRequestDTO) {
         StatusResponseDTO statusResponseDTO = statusService.createStatus(statusRequestDTO);
 
@@ -58,6 +66,8 @@ public class StatusRestController {
 
     @PutMapping("/{id}")
     @Validated
+    @Operation(summary = "Update a status", description = "Updates a status by its ID")
+    @Parameter(name = "id", description = "Unique identifier of the status")
     public ResponseEntity<StatusResponseDTO> updateStatus(@NotNull @PathVariable Integer id,
                                                           @Valid @RequestBody StatusRequestDTO statusRequestDTO) {
 
@@ -68,9 +78,10 @@ public class StatusRestController {
         return ResponseEntity.ok(statusResponseDTO);
     }
 
-    @ExecutionTime
     @DeleteMapping("/{id}")
     @Validated
+    @Operation(summary = "Delete a status", description = "Deletes a status by its ID")
+    @Parameter(name = "id", description = "Unique identifier of the status")
     public ResponseEntity<Void> deleteStatus(@NotNull @PathVariable Integer id) {
         statusService.deleteStatus(id);
 

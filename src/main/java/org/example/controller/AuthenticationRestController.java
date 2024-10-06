@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication", description = "Operations for User registration, authentication, and logout")
 public class AuthenticationRestController {
 
     private final AuthenticationService service;
@@ -26,6 +29,7 @@ public class AuthenticationRestController {
     private final JwtBlacklistService jwtBlacklistService;
 
     @PostMapping("/register")
+    @Operation(summary = "Register a new User", description = "This operation allows Users to register for the application")
     public ResponseEntity<AuthenticationResponseDTO> register(@Valid @RequestBody RegisterRequestDTO request) {
         AuthenticationResponseDTO authResponseDTO = service.register(request);
 
@@ -35,6 +39,7 @@ public class AuthenticationRestController {
     }
 
     @PostMapping("/authenticate")
+    @Operation(summary = "Authenticate a User", description = "This operation allows Users to authenticate with their credentials")
     public ResponseEntity<AuthenticationResponseDTO> authenticate(@Valid @RequestBody AuthenticationRequestDTO request) {
         AuthenticationResponseDTO authResponseDTO = service.authenticate(request);
 
@@ -44,6 +49,7 @@ public class AuthenticationRestController {
     }
 
     @PostMapping("/logout")
+    @Operation(summary = "Logout a User", description = "This operation allows users to logout and blacklist their token")
     public ResponseEntity<Void> logout(@RequestHeader("Authorization") String token) {
         String tokenValue = token.substring(7);
 

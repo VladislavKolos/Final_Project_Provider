@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface EmailTokenService {
-    void sendConfirmationEmail(User user, String newEmail);
+    void sendConfirmationEmail(User user, String newEmail, String newUsername, String newPhone);
 
     EmailToken findByToken(String token);
 }

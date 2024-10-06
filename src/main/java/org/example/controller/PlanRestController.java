@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +29,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Tag(name = "Plans", description = "Operations for managing plans (Admin and Client)")
 public class PlanRestController {
     private final PlanService planService;
 
     @ExecutionTime
     @GetMapping("/admin/plans")
-    @Validated
+    @Operation(summary = "Get all plans for Admin", description = "Retrieves a paginated list of all plans (for Admin)")
+    @Parameter(name = "pageable", description = "Pagination information (optional, default: page=0, size=5, sort=name,asc)")
     public ResponseEntity<Page<PlanResponseDTO>> getAllPlansForAdmin(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)
                                                                      Pageable pageable) {
         Page<PlanResponseDTO> plans = planService.getAllPlans(pageable);
@@ -44,6 +49,8 @@ public class PlanRestController {
     @ExecutionTime
     @GetMapping("/admin/plans/{id}")
     @Validated
+    @Operation(summary = "Get a plan by ID for Admin", description = "Retrieves a plan by its unique identifier (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the plan")
     public ResponseEntity<PlanResponseDTO> getPlanByIdForAdmin(@NotNull @PathVariable Integer id) {
         PlanResponseDTO planResponseDTO = planService.getPlanById(id);
 
@@ -53,6 +60,7 @@ public class PlanRestController {
     }
 
     @PostMapping("/admin/plans")
+    @Operation(summary = "Create a new plan (Admin)", description = "Creates a new plan (for Admin)")
     public ResponseEntity<PlanResponseDTO> createPlan(@Valid @RequestBody CreatePlanRequestDTO createPlanRequestDTO) {
         PlanResponseDTO planResponseDTO = planService.createPlan(createPlanRequestDTO);
 
@@ -63,6 +71,8 @@ public class PlanRestController {
 
     @PutMapping("/admin/plans/{id}")
     @Validated
+    @Operation(summary = "Update a plan (Admin)", description = "Updates a plan by its ID (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the plan")
     public ResponseEntity<PlanResponseDTO> updatePlan(@NotNull @PathVariable Integer id,
                                                       @Valid @RequestBody UpdatePlanRequestDTO updatePlanRequestDTO) {
         PlanResponseDTO planResponseDTO = planService.updatePlan(id, updatePlanRequestDTO);
@@ -74,6 +84,8 @@ public class PlanRestController {
 
     @DeleteMapping("/admin/plans/{id}")
     @Validated
+    @Operation(summary = "Delete a plan (Admin)", description = "Deletes a plan by its ID (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the plan")
     public ResponseEntity<Void> deletePlan(@NotNull @PathVariable Integer id) {
         planService.deletePlan(id);
 
@@ -84,7 +96,8 @@ public class PlanRestController {
 
     @ExecutionTime
     @GetMapping("/client/plans")
-    @Validated
+    @Operation(summary = "Get all plans for Client", description = "Retrieves a paginated list of all plans (for Client)")
+    @Parameter(name = "pageable", description = "Pagination information (optional, default: page=0, size=5, sort=name,asc)")
     public ResponseEntity<Page<PlanResponseDTO>> getAllPlansForClient(@PageableDefault(sort = "name", direction = Sort.Direction.ASC, value = 5)
                                                                       Pageable pageable) {
         Page<PlanResponseDTO> plans = planService.getAllPlans(pageable);
@@ -92,5 +105,18 @@ public class PlanRestController {
         log.info("Plans for Client successfully received");
 
         return ResponseEntity.ok(plans);
+    }
+
+    @ExecutionTime
+    @GetMapping("/client/plans/{id}")
+    @Validated
+    @Operation(summary = "Get a plan by ID for Client", description = "Retrieves a plan by its unique identifier (for Client)")
+    @Parameter(name = "id", description = "Unique identifier of the plan")
+    public ResponseEntity<PlanResponseDTO> getPlanByIdForClient(@NotNull @PathVariable Integer id) {
+        PlanResponseDTO planResponseDTO = planService.getPlanById(id);
+
+        log.info("Plan: " + id + " for Client successfully received");
+
+        return ResponseEntity.ok(planResponseDTO);
     }
 }

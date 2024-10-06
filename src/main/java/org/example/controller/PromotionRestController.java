@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +29,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Tag(name = "Promotions", description = "Operations related to managing promotions (Admin and Client)")
 public class PromotionRestController {
     private final PromotionService promotionService;
 
     @ExecutionTime
     @GetMapping("/admin/promotions")
-    @Validated
+    @Operation(summary = "Get all promotions for Admin", description = "Retrieves a paginated list of all promotions (for Admin)")
+    @Parameter(name = "pageable", description = "Pagination information (optional, default: page=0, size=5, sort=discountPercentage,asc)")
     public ResponseEntity<Page<PromotionResponseDTO>> getAllPromotionsForAdmin(@PageableDefault(sort = "discountPercentage", direction = Sort.Direction.ASC, value = 5)
                                                                                Pageable pageable) {
         Page<PromotionResponseDTO> promotions = promotionService.getAllPromotions(pageable);
@@ -44,6 +49,8 @@ public class PromotionRestController {
     @ExecutionTime
     @GetMapping("/admin/promotions/{id}")
     @Validated
+    @Operation(summary = "Get a promotion by ID for Admin", description = "Retrieves a promotion by its unique identifier (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the promotion")
     public ResponseEntity<PromotionResponseDTO> getPromotionByIdForAdmin(@NotNull @PathVariable Integer id) {
         PromotionResponseDTO promotionResponseDTO = promotionService.getPromotionById(id);
 
@@ -53,6 +60,7 @@ public class PromotionRestController {
     }
 
     @PostMapping("/admin/promotions")
+    @Operation(summary = "Create a new promotion (Admin)", description = "Creates a new promotion (for Admin)")
     public ResponseEntity<PromotionResponseDTO> createPromotion(@Valid @RequestBody CreatePromotionRequestDTO createPromotionRequestDTO) {
         PromotionResponseDTO promotionResponseDTO = promotionService.createPromotion(createPromotionRequestDTO);
 
@@ -63,6 +71,8 @@ public class PromotionRestController {
 
     @PutMapping("/admin/promotions/{id}")
     @Validated
+    @Operation(summary = "Update a promotion (Admin)", description = "Updates a promotion by its ID (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the promotion")
     public ResponseEntity<PromotionResponseDTO> updatePromotion(@NotNull @PathVariable Integer id,
                                                                 @Valid @RequestBody UpdatePromotionRequestDTO updatePromotionRequestDTO) {
         PromotionResponseDTO promotionResponseDTO = promotionService.updatePromotion(id, updatePromotionRequestDTO);
@@ -74,6 +84,8 @@ public class PromotionRestController {
 
     @DeleteMapping("/admin/promotions/{id}")
     @Validated
+    @Operation(summary = "Delete a promotion (Admin)", description = "Deletes a promotion by its ID (for Admin)")
+    @Parameter(name = "id", description = "Unique identifier of the promotion")
     public ResponseEntity<Void> deletePromotion(@NotNull @PathVariable Integer id) {
         promotionService.deletePromotion(id);
 
@@ -84,7 +96,8 @@ public class PromotionRestController {
 
     @ExecutionTime
     @GetMapping("/client/promotions")
-    @Validated
+    @Operation(summary = "Get all promotions for Client", description = "Retrieves a paginated list of all promotions (for Client)")
+    @Parameter(name = "pageable", description = "Pagination information (optional, default: page=0, size=5, sort=discountPercentage,asc)")
     public ResponseEntity<Page<PromotionResponseDTO>> getAllPromotionsForClient(@PageableDefault(sort = "discountPercentage", direction = Sort.Direction.ASC, value = 5)
                                                                                 Pageable pageable) {
         Page<PromotionResponseDTO> promotions = promotionService.getAllPromotions(pageable);
@@ -92,5 +105,18 @@ public class PromotionRestController {
         log.info("Promotions for Client successfully received");
 
         return ResponseEntity.ok(promotions);
+    }
+
+    @ExecutionTime
+    @GetMapping("/client/promotions/{id}")
+    @Validated
+    @Operation(summary = "Get a promotion by ID for Client", description = "Retrieves a promotion by its unique identifier (for Client)")
+    @Parameter(name = "id", description = "Unique identifier of the promotion")
+    public ResponseEntity<PromotionResponseDTO> getPromotionByIdForClient(@NotNull @PathVariable Integer id) {
+        PromotionResponseDTO promotionResponseDTO = promotionService.getPromotionById(id);
+
+        log.info("Promotion: " + id + " for Client successfully received");
+
+        return ResponseEntity.ok(promotionResponseDTO);
     }
 }
