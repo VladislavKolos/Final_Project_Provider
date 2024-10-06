@@ -45,10 +45,6 @@ Prerequisites
 **API Documentation**
 The Provider Management System offers a fully documented RESTful API that allows interaction with both client and admin functionalities.
 
-Access API Documentation:
-- Swagger UI: http://localhost:8080/swagger-ui
-- API Docs: http://localhost:8080/api-docs
-
 **Security**
 
 The application implements JWT (JSON Web Token) based authentication using Spring Security. 
