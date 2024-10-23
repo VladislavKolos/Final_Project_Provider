@@ -10,6 +10,8 @@ services:
       - "5051:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - provider_network
   app:
     build:
       context: .
@@ -26,5 +28,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgresql
     volumes:
       - ./logs:/app/logs
+    networks:
+      - provider_network
 volumes:
   pgdata:
+
+networks:
+  provider_network:
