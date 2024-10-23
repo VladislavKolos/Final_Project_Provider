@@ -1,0 +1,246 @@
+2024-10-06 15:33:46 INFO  ProviderLifecycleListener:38 - Application is stopping at: 2024-10-06T15:33:46.809402823
+2024-10-06 15:33:46 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-06 15:34:37 INFO  Version:21 - HV000001: Hibernate Validator 8.0.1.Final
+2024-10-06 15:34:37 INFO  Application:50 - Starting Application using Java 17.0.6 with PID 44 (/app/target/classes started by root in /app)
+2024-10-06 15:34:37 INFO  Application:654 - No active profile set, falling back to 1 default profile: "default"
+2024-10-06 15:34:38 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-06 15:34:39 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 125 ms. Found 9 JPA repository interfaces.
+2024-10-06 15:34:40 INFO  TomcatWebServer:109 - Tomcat initialized with port 8080 (http)
+2024-10-06 15:34:40 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-06 15:34:40 INFO  StandardService:173 - Starting service [Tomcat]
+2024-10-06 15:34:40 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-10-06 15:34:40 INFO  TldScanner:173 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-10-06 15:34:40 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-10-06 15:34:40 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 3109 ms
+2024-10-06 15:34:40 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-06 15:34:40 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-10-06 15:34:40 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-10-06 15:34:41 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-06 15:34:41 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-06 15:34:43 INFO  JtaPlatformInitiator:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-06 15:34:43 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-06 15:34:44 WARN  JpaBaseConfiguration$JpaWebConfiguration:232 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-06 15:34:45 INFO  EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-10-06 15:34:45 INFO  DefaultSecurityFilterChain:54 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@8802edd, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@50fd4246, org.springframework.security.web.context.SecurityContextHolderFilter@60232aad, org.springframework.security.web.header.HeaderWriterFilter@6f0969db, org.springframework.web.filter.CorsFilter@35c55050, org.springframework.security.web.authentication.logout.LogoutFilter@593f6c3, org.example.filter.JwtAuthenticationFilter@2c3c05ff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6cd8aee2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6e56f5d4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a0154f7, org.springframework.security.web.session.SessionManagementFilter@5862a07b, org.springframework.security.web.access.ExceptionTranslationFilter@44929971, org.springframework.security.web.access.intercept.AuthorizationFilter@6a8a54f5]
+2024-10-06 15:34:46 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-06 15:34:46 INFO  TomcatWebServer:241 - Tomcat started on port 8080 (http) with context path ''
+2024-10-06 15:34:46 INFO  Application:56 - Started Application in 9.257 seconds (process running for 10.136)
+2024-10-06 15:34:46 INFO  ProviderLifecycleListener:27 - Application started at: 2024-10-06T15:34:46.113056936
+2024-10-06 15:43:50 INFO  [/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-06 15:43:51 INFO  DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2024-10-06 15:43:51 INFO  DispatcherServlet:554 - Completed initialization in 420 ms
+2024-10-06 16:36:56 INFO  Version:21 - HV000001: Hibernate Validator 8.0.1.Final
+2024-10-06 16:36:57 INFO  Application:50 - Starting Application using Java 17.0.6 with PID 50 (/app/target/classes started by root in /app)
+2024-10-06 16:36:57 INFO  Application:654 - No active profile set, falling back to 1 default profile: "default"
+2024-10-06 16:37:23 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-06 16:37:23 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 481 ms. Found 9 JPA repository interfaces.
+2024-10-06 16:37:37 INFO  TomcatWebServer:109 - Tomcat initialized with port 8080 (http)
+2024-10-06 16:37:37 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-06 16:37:37 INFO  StandardService:173 - Starting service [Tomcat]
+2024-10-06 16:37:37 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-10-06 16:37:40 INFO  TldScanner:173 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-10-06 16:37:41 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-10-06 16:37:41 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 42967 ms
+2024-10-06 16:37:44 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-06 16:37:48 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-10-06 16:37:49 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-10-06 16:37:59 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-06 16:38:07 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-06 16:38:15 INFO  JtaPlatformInitiator:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-06 16:38:19 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-06 16:38:24 WARN  JpaBaseConfiguration$JpaWebConfiguration:232 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-06 16:38:27 INFO  EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-10-06 16:38:28 INFO  DefaultSecurityFilterChain:54 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@698df5e8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@32317a37, org.springframework.security.web.context.SecurityContextHolderFilter@5af6378e, org.springframework.security.web.header.HeaderWriterFilter@3faadc24, org.springframework.web.filter.CorsFilter@1727d525, org.springframework.security.web.authentication.logout.LogoutFilter@6c92af74, org.example.filter.JwtAuthenticationFilter@5bad04d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@659b0c20, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7a1b4074, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1f7b7ac4, org.springframework.security.web.session.SessionManagementFilter@3662309d, org.springframework.security.web.access.ExceptionTranslationFilter@6e9e4332, org.springframework.security.web.access.intercept.AuthorizationFilter@31419d4a]
+2024-10-06 16:38:29 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-06 16:38:29 INFO  TomcatWebServer:241 - Tomcat started on port 8080 (http) with context path ''
+2024-10-06 16:38:29 INFO  Application:56 - Started Application in 101.057 seconds (process running for 115.365)
+2024-10-06 16:38:29 INFO  ProviderLifecycleListener:27 - Application started at: 2024-10-06T16:38:29.860298594
+2024-10-06 16:46:13 INFO  [/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-06 16:46:13 INFO  DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2024-10-06 16:46:13 INFO  DispatcherServlet:554 - Completed initialization in 4 ms
+2024-10-06 16:55:51 INFO  AuthenticationRestController:46 - User successfully authenticated
+2024-10-06 16:56:48 WARN  SessionIdGeneratorBase:173 - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [275] milliseconds.
+2024-10-06 16:56:48 INFO  MethodExecutionTimeAspect:36 - Execution of ResponseEntity org.example.controller.UserRestController.getAdminProfile(Authentication) started at: 1728233808410
+2024-10-06 16:56:48 INFO  UserRestController:84 - Admin Main_Admin profile successfully received
+2024-10-06 16:56:48 INFO  MethodExecutionTimeAspect:49 - Execution of ResponseEntity org.example.controller.UserRestController.getAdminProfile(Authentication) ended at: 1728233808503
+2024-10-06 16:56:48 INFO  MethodExecutionTimeAspect:52 - Execution of ResponseEntity org.example.controller.UserRestController.getAdminProfile(Authentication) took 93 ms
+2024-10-06 17:02:55 INFO  MethodExecutionTimeAspect:36 - Execution of ResponseEntity org.example.controller.UserRestController.getAdminProfile(Authentication) started at: 1728234175475
+2024-10-06 17:02:55 INFO  UserRestController:84 - Admin Main_Admin profile successfully received
+2024-10-06 17:02:55 INFO  MethodExecutionTimeAspect:49 - Execution of ResponseEntity org.example.controller.UserRestController.getAdminProfile(Authentication) ended at: 1728234175659
+2024-10-06 17:02:55 INFO  MethodExecutionTimeAspect:52 - Execution of ResponseEntity org.example.controller.UserRestController.getAdminProfile(Authentication) took 184 ms
+2024-10-06 17:05:30 INFO  Http11Processor:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x060xb20x010x000x060xae0x030x030xb4[0x920xc750x890x1a0xa6~`C0xcd0xda0xaf0xf00xa70xc30xe40xcc90xcb0x87`J0xc4;0xff0xbf0xc60xb5x5 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:264) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at java.base/java.lang.Thread.run(Thread.java:833) [?:?]
+2024-10-06 17:05:30 INFO  Http11Processor:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x060xb20x010x000x060xae0x030x03bRS9P0xcd0x97y|0xa7FG0xcf0xa20xb60xfa0x090xf80x1f0xf60x11pg`0x0a0xf9k<F0xca0xba9 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:264) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) [tomcat-embed-core-10.1.20.jar:10.1.20]
+	at java.base/java.lang.Thread.run(Thread.java:833) [?:?]
+2024-10-06 17:11:06 INFO  ProviderLifecycleListener:38 - Application is stopping at: 2024-10-06T17:11:06.209353254
+2024-10-06 17:11:07 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-06 17:27:37 INFO  Version:21 - HV000001: Hibernate Validator 8.0.1.Final
+2024-10-06 17:27:39 INFO  Application:50 - Starting Application using Java 17.0.6 with PID 58 (/app/target/classes started by root in /app)
+2024-10-06 17:27:39 INFO  Application:654 - No active profile set, falling back to 1 default profile: "default"
+2024-10-06 17:28:26 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-06 17:28:28 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 1458 ms. Found 9 JPA repository interfaces.
+2024-10-06 17:28:41 INFO  TomcatWebServer:109 - Tomcat initialized with port 8080 (http)
+2024-10-06 17:28:41 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-06 17:28:41 INFO  StandardService:173 - Starting service [Tomcat]
+2024-10-06 17:28:41 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-10-06 17:28:46 INFO  TldScanner:173 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-10-06 17:28:47 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-10-06 17:28:47 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 66282 ms
+2024-10-06 17:28:50 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-06 17:28:56 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-10-06 17:28:57 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-10-06 17:29:07 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-06 17:29:12 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-06 17:29:24 INFO  JtaPlatformInitiator:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-06 17:29:28 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-06 17:29:35 WARN  JpaBaseConfiguration$JpaWebConfiguration:232 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-06 17:29:38 INFO  EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-10-06 17:29:38 INFO  DefaultSecurityFilterChain:54 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@22d522d4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6409a2e4, org.springframework.security.web.context.SecurityContextHolderFilter@e8f7aa3, org.springframework.security.web.header.HeaderWriterFilter@e76aa, org.springframework.web.filter.CorsFilter@54e24511, org.springframework.security.web.authentication.logout.LogoutFilter@7e3c5dbb, org.example.filter.JwtAuthenticationFilter@32fa7ff0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c861b25, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@117bb3a4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c95440d, org.springframework.security.web.session.SessionManagementFilter@2f1e3e1c, org.springframework.security.web.access.ExceptionTranslationFilter@5e077a32, org.springframework.security.web.access.intercept.AuthorizationFilter@7252e3ec]
+2024-10-06 17:29:39 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-06 17:29:40 INFO  TomcatWebServer:241 - Tomcat started on port 8080 (http) with context path ''
+2024-10-06 17:29:40 INFO  Application:56 - Started Application in 135.78 seconds (process running for 149.819)
+2024-10-06 17:29:40 INFO  ProviderLifecycleListener:27 - Application started at: 2024-10-06T17:29:40.436139029
+2024-10-06 17:30:45 INFO  [/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-06 17:30:45 INFO  DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2024-10-06 17:30:45 INFO  DispatcherServlet:554 - Completed initialization in 3 ms
+2024-10-06 17:31:28 INFO  AbstractOpenApiResource:390 - Init duration for springdoc-openapi is: 2930 ms
+2024-10-06 17:33:36 INFO  AbstractOpenApiResource:390 - Init duration for springdoc-openapi is: 872 ms
+2024-10-06 17:37:08 INFO  AuthenticationRestController:46 - User successfully authenticated
+2024-10-06 17:37:32 WARN  SessionIdGeneratorBase:173 - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [481] milliseconds.
+2024-10-06 17:37:32 INFO  MethodExecutionTimeAspect:36 - Execution of ResponseEntity org.example.controller.UserRestController.getClientProfile(Authentication) started at: 1728236252718
+2024-10-06 17:37:32 INFO  UserRestController:174 - Client VladislavKolos profile successfully received
+2024-10-06 17:37:32 INFO  MethodExecutionTimeAspect:49 - Execution of ResponseEntity org.example.controller.UserRestController.getClientProfile(Authentication) ended at: 1728236252837
+2024-10-06 17:37:32 INFO  MethodExecutionTimeAspect:52 - Execution of ResponseEntity org.example.controller.UserRestController.getClientProfile(Authentication) took 119 ms
+2024-10-06 17:38:42 INFO  RecipientCurrentClientUtil:22 - Current Client ID for Client successfully retrieved
+2024-10-06 17:38:55 INFO  UserRestController:214 - For Client: 5 An email confirmation email has been sent to
+2024-10-06 17:40:13 INFO  UserRestController:225 - Email confirmed successfully
+2024-10-06 17:43:02 INFO  ProviderLifecycleListener:38 - Application is stopping at: 2024-10-06T17:43:02.867723408
+2024-10-06 17:43:03 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-23 16:53:24 INFO  Version:21 - HV000001: Hibernate Validator 8.0.1.Final
+2024-10-23 16:53:24 INFO  Application:50 - Starting Application using Java 17.0.6 with PID 61 (/app/target/classes started by root in /app)
+2024-10-23 16:53:24 INFO  Application:654 - No active profile set, falling back to 1 default profile: "default"
+2024-10-23 16:53:26 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-23 16:53:27 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 290 ms. Found 9 JPA repository interfaces.
+2024-10-23 16:53:28 INFO  TomcatWebServer:109 - Tomcat initialized with port 8080 (http)
+2024-10-23 16:53:28 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-23 16:53:28 INFO  StandardService:173 - Starting service [Tomcat]
+2024-10-23 16:53:28 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-10-23 16:53:28 INFO  TldScanner:173 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-10-23 16:53:28 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-10-23 16:53:28 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 4356 ms
+2024-10-23 16:53:29 INFO  VersionPrinter:37 - Flyway Community Edition 9.22.3 by Redgate
+2024-10-23 16:53:29 INFO  VersionPrinter:37 - See release notes here: https://rd.gt/416ObMi
+2024-10-23 16:53:30 INFO  VersionPrinter:37 - 
+2024-10-23 16:53:30 INFO  FlywayExecutor:37 - Database: jdbc:postgresql://db:5432/provider_db (PostgreSQL 14.13)
+2024-10-23 16:53:30 INFO  JdbcTableSchemaHistory:37 - Schema history table "public"."flyway_schema_history" does not exist yet
+2024-10-23 16:53:30 INFO  DbValidate:37 - Successfully validated 0 migrations (execution time 00:00.037s)
+2024-10-23 16:53:30 WARN  DbValidate:41 - No migrations found. Are your locations set up correctly?
+2024-10-23 16:53:30 INFO  JdbcTableSchemaHistory:37 - Creating Schema History table "public"."flyway_schema_history" with baseline ...
+2024-10-23 16:53:31 INFO  DbBaseline:37 - Successfully baselined schema with version: 1
+2024-10-23 16:53:31 INFO  DbMigrate:37 - Current version of schema "public": 1
+2024-10-23 16:53:31 INFO  DbMigrate:37 - Schema "public" is up to date. No migration necessary.
+2024-10-23 16:53:31 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-23 16:53:31 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-10-23 16:53:31 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-10-23 16:53:32 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-23 16:53:32 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-23 16:53:33 INFO  JtaPlatformInitiator:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-23 16:53:33 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-23 16:53:35 WARN  JpaBaseConfiguration$JpaWebConfiguration:232 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-23 16:53:35 INFO  EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-10-23 16:53:35 INFO  DefaultSecurityFilterChain:54 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@17aa06eb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@370c9681, org.springframework.security.web.context.SecurityContextHolderFilter@12f52ca4, org.springframework.security.web.header.HeaderWriterFilter@7bbd133c, org.springframework.web.filter.CorsFilter@419fc1d6, org.springframework.security.web.authentication.logout.LogoutFilter@4db8b888, org.example.filter.JwtAuthenticationFilter@79296ce0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@750afe12, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@79a1f0a1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@46c85b61, org.springframework.security.web.session.SessionManagementFilter@5b12157b, org.springframework.security.web.access.ExceptionTranslationFilter@139f1db4, org.springframework.security.web.access.intercept.AuthorizationFilter@1502cd38]
+2024-10-23 16:53:36 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-23 16:53:36 INFO  TomcatWebServer:241 - Tomcat started on port 8080 (http) with context path ''
+2024-10-23 16:53:36 INFO  Application:56 - Started Application in 13.135 seconds (process running for 15.582)
+2024-10-23 16:53:36 INFO  ProviderLifecycleListener:27 - Application started at: 2024-10-23T16:53:36.668248548
+2024-10-23 17:24:36 INFO  ProviderLifecycleListener:38 - Application is stopping at: 2024-10-23T17:24:36.019558274
+2024-10-23 17:28:57 INFO  Version:21 - HV000001: Hibernate Validator 8.0.1.Final
+2024-10-23 17:28:57 INFO  Application:50 - Starting Application using Java 17.0.6 with PID 60 (/app/target/classes started by root in /app)
+2024-10-23 17:28:57 INFO  Application:654 - No active profile set, falling back to 1 default profile: "default"
+2024-10-23 17:29:14 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-23 17:29:16 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 943 ms. Found 9 JPA repository interfaces.
+2024-10-23 17:29:27 INFO  TomcatWebServer:109 - Tomcat initialized with port 8080 (http)
+2024-10-23 17:29:28 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-23 17:29:28 INFO  StandardService:173 - Starting service [Tomcat]
+2024-10-23 17:29:28 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-10-23 17:29:30 INFO  TldScanner:173 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-10-23 17:29:30 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-10-23 17:29:30 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 32348 ms
+2024-10-23 17:29:34 INFO  VersionPrinter:37 - Flyway Community Edition 9.22.3 by Redgate
+2024-10-23 17:29:34 INFO  VersionPrinter:37 - See release notes here: https://rd.gt/416ObMi
+2024-10-23 17:29:34 INFO  VersionPrinter:37 - 
+2024-10-23 17:29:34 INFO  FlywayExecutor:37 - Database: jdbc:postgresql://db:5432/provider_db (PostgreSQL 14.13)
+2024-10-23 17:29:36 INFO  DbValidate:37 - Successfully validated 1 migration (execution time 00:00.298s)
+2024-10-23 17:29:36 INFO  DbMigrate:37 - Current version of schema "public": 1
+2024-10-23 17:29:36 INFO  DbMigrate:37 - Schema "public" is up to date. No migration necessary.
+2024-10-23 17:29:36 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-23 17:29:36 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-10-23 17:29:37 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-10-23 17:29:39 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-23 17:29:41 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-23 17:29:44 INFO  JtaPlatformInitiator:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-23 17:29:45 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-23 17:29:47 WARN  JpaBaseConfiguration$JpaWebConfiguration:232 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-23 17:29:48 INFO  EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-10-23 17:29:48 INFO  DefaultSecurityFilterChain:54 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@10fc01e0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6a2cd5ea, org.springframework.security.web.context.SecurityContextHolderFilter@2b454886, org.springframework.security.web.header.HeaderWriterFilter@2027e9f9, org.springframework.web.filter.CorsFilter@1c68601b, org.springframework.security.web.authentication.logout.LogoutFilter@43dc6864, org.example.filter.JwtAuthenticationFilter@779e66e5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@f53070c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c9542eb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3128be29, org.springframework.security.web.session.SessionManagementFilter@5cfadadc, org.springframework.security.web.access.ExceptionTranslationFilter@7cb040b7, org.springframework.security.web.access.intercept.AuthorizationFilter@3a792bf9]
+2024-10-23 17:29:49 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-23 17:29:49 INFO  TomcatWebServer:241 - Tomcat started on port 8080 (http) with context path ''
+2024-10-23 17:29:49 INFO  Application:56 - Started Application in 57.094 seconds (process running for 76.444)
+2024-10-23 17:29:49 INFO  ProviderLifecycleListener:27 - Application started at: 2024-10-23T17:29:49.463225371
+2024-10-23 17:46:30 INFO  ProviderLifecycleListener:38 - Application is stopping at: 2024-10-23T17:46:30.715394613
+2024-10-23 17:46:31 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-23 17:57:44 INFO  Version:21 - HV000001: Hibernate Validator 8.0.1.Final
+2024-10-23 17:57:44 INFO  Application:50 - Starting Application using Java 17.0.6 with PID 59 (/app/target/classes started by root in /app)
+2024-10-23 17:57:44 INFO  Application:654 - No active profile set, falling back to 1 default profile: "default"
+2024-10-23 17:57:46 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-23 17:57:46 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 133 ms. Found 9 JPA repository interfaces.
+2024-10-23 17:57:48 INFO  TomcatWebServer:109 - Tomcat initialized with port 8080 (http)
+2024-10-23 17:57:48 INFO  Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-23 17:57:48 INFO  StandardService:173 - Starting service [Tomcat]
+2024-10-23 17:57:48 INFO  StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-10-23 17:57:49 INFO  TldScanner:173 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-10-23 17:57:49 INFO  [/]:173 - Initializing Spring embedded WebApplicationContext
+2024-10-23 17:57:49 INFO  ServletWebServerApplicationContext:296 - Root WebApplicationContext: initialization completed in 4919 ms
+2024-10-23 17:57:53 INFO  VersionPrinter:37 - Flyway Community Edition 9.22.3 by Redgate
+2024-10-23 17:57:53 INFO  VersionPrinter:37 - See release notes here: https://rd.gt/416ObMi
+2024-10-23 17:57:53 INFO  VersionPrinter:37 - 
+2024-10-23 17:57:53 INFO  FlywayExecutor:37 - Database: jdbc:postgresql://db:5432/provider_db (PostgreSQL 14.13)
+2024-10-23 17:57:56 INFO  DbValidate:37 - Successfully validated 1 migration (execution time 00:00.984s)
+2024-10-23 17:57:56 INFO  DbMigrate:37 - Current version of schema "public": 1
+2024-10-23 17:57:56 INFO  DbMigrate:37 - Schema "public" is up to date. No migration necessary.
+2024-10-23 17:57:56 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-23 17:57:56 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-10-23 17:57:56 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-10-23 17:57:57 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-23 17:57:57 WARN  deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-23 17:57:58 INFO  JtaPlatformInitiator:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-23 17:57:59 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-23 17:58:00 WARN  JpaBaseConfiguration$JpaWebConfiguration:232 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-23 17:58:01 INFO  EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-10-23 17:58:01 INFO  DefaultSecurityFilterChain:54 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3077e4aa, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3518882c, org.springframework.security.web.context.SecurityContextHolderFilter@3d8c499a, org.springframework.security.web.header.HeaderWriterFilter@328446e1, org.springframework.web.filter.CorsFilter@71dc03a, org.springframework.security.web.authentication.logout.LogoutFilter@566b1b0f, org.example.filter.JwtAuthenticationFilter@30c96ea9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20f1c8ed, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@63f79099, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7ff48cdc, org.springframework.security.web.session.SessionManagementFilter@34207fde, org.springframework.security.web.access.ExceptionTranslationFilter@3f96ef2, org.springframework.security.web.access.intercept.AuthorizationFilter@3094111c]
+2024-10-23 17:58:02 INFO  Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-23 17:58:02 INFO  TomcatWebServer:241 - Tomcat started on port 8080 (http) with context path ''
+2024-10-23 17:58:02 INFO  Application:56 - Started Application in 18.438 seconds (process running for 21.325)
+2024-10-23 17:58:02 INFO  ProviderLifecycleListener:27 - Application started at: 2024-10-23T17:58:02.184001318
