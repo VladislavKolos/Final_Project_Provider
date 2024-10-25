@@ -40,7 +40,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminPlanApi() {
         return GroupedOpenApi.builder()
                 .group("Admin Plans API")
-                .pathsToMatch("/api/admin/plans**")
+                .pathsToMatch("/api/admin/plans/**")
                 .build();
     }
 
@@ -48,7 +48,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicClientPlanApi() {
         return GroupedOpenApi.builder()
                 .group("Client Plans API")
-                .pathsToMatch("/api/client/plans**")
+                .pathsToMatch("/api/client/plans/**")
                 .build();
     }
 
@@ -56,7 +56,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminPromotionApi() {
         return GroupedOpenApi.builder()
                 .group("Admin Promotion API")
-                .pathsToMatch("/api/admin/promotions**")
+                .pathsToMatch("/api/admin/promotions/**")
                 .build();
     }
 
@@ -64,7 +64,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicClientPromotionApi() {
         return GroupedOpenApi.builder()
                 .group("Client Promotion API")
-                .pathsToMatch("/api/client/promotions**")
+                .pathsToMatch("/api/client/promotions/**")
                 .build();
     }
 
@@ -72,7 +72,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminPromotionalTariffApi() {
         return GroupedOpenApi.builder()
                 .group("Admin Promotional Tariff API")
-                .pathsToMatch("/api/admin/promotions-tariffs**")
+                .pathsToMatch("/api/admin/promotions-tariffs/**")
                 .build();
     }
 
@@ -80,7 +80,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicClientPromotionalTariffApi() {
         return GroupedOpenApi.builder()
                 .group("Client Promotional Tariff API")
-                .pathsToMatch("/api/client/promotions-tariffs**")
+                .pathsToMatch("/api/client/promotions-tariffs/**")
                 .build();
     }
 
@@ -88,7 +88,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminRoleApi() {
         return GroupedOpenApi.builder()
                 .group("Admin Role API")
-                .pathsToMatch("/api/admin/roles**")
+                .pathsToMatch("/api/admin/roles/**")
                 .build();
     }
 
@@ -96,7 +96,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminStatusApi() {
         return GroupedOpenApi.builder()
                 .group("Admin Status API")
-                .pathsToMatch("/api/admin/statuses**")
+                .pathsToMatch("/api/admin/statuses/**")
                 .build();
     }
 
@@ -104,7 +104,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminSubscriptionApi() {
         return GroupedOpenApi.builder()
                 .group("Admin Subscription API")
-                .pathsToMatch("/api/admin/subscription**")
+                .pathsToMatch("/api/admin/subscription/**")
                 .build();
     }
 
@@ -112,7 +112,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicClientSubscriptionApi() {
         return GroupedOpenApi.builder()
                 .group("Client Subscription API")
-                .pathsToMatch("/api/client/subscriptions**")
+                .pathsToMatch("/api/client/subscriptions/**")
                 .build();
     }
 
@@ -120,7 +120,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminTariffApi() {
         return GroupedOpenApi.builder()
                 .group("Admin Tariff API")
-                .pathsToMatch("/api/admin/tariffs**")
+                .pathsToMatch("/api/admin/tariffs/**")
                 .build();
     }
 
@@ -128,7 +128,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicClientTariffApi() {
         return GroupedOpenApi.builder()
                 .group("Client Tariff API")
-                .pathsToMatch("/api/client/tariffs**")
+                .pathsToMatch("/api/client/tariffs/**")
                 .build();
     }
 
@@ -136,7 +136,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicAdminUserApi() {
         return GroupedOpenApi.builder()
                 .group("Admin User API")
-                .pathsToMatch("/api/admin/users**")
+                .pathsToMatch("/api/admin/users/**")
                 .build();
     }
 
@@ -144,7 +144,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicClientUserApi() {
         return GroupedOpenApi.builder()
                 .group("Client User API")
-                .pathsToMatch("/api/client/users**")
+                .pathsToMatch("/api/client/users/**")
                 .build();
     }
 }
