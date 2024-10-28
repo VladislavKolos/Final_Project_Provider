@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.requestdto.CreateSubscriptionRequestDTO;
 import org.example.dto.requestdto.UpdateSubscriptionRequestDTO;
 import org.example.dto.responsedto.SubscriptionResponseDTO;
+import org.example.exception.ProviderConflictException;
 import org.example.exception.ProviderNotFoundException;
 import org.example.mapper.SubscriptionMapper;
 import org.example.model.Plan;
@@ -15,6 +16,7 @@ import org.example.service.PlanService;
 import org.example.service.SubscriptionService;
 import org.example.service.UserService;
 import org.example.util.ProviderConstantUtil;
+import org.example.validator.subscriptionvalidator.SubscriptionValidator;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final PlanService planService;
 
     private final MessageSource messageSource;
+
+    private final SubscriptionValidator subscriptionValidator;
 
     /**
      * This method fetches all subscriptions from the `subscriptionRepository` and
@@ -173,6 +177,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     @Transactional
     public SubscriptionResponseDTO subscribeToPlan(Integer userId, Integer planId) {
+        if (subscriptionValidator.checkUniqueSubscription(userId)) {
+            throw new ProviderConflictException("User is already subscribed to plan: " + planId);
+        }
+
         Subscription subscription = buildSubscription(ProviderConstantUtil.SUBSCRIPTION_STATUS_SIGNED,
                 userService.getUserEntityById(userId),
                 planService.getPlanEntityById(planId));
