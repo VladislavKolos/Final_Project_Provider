@@ -7,6 +7,7 @@ import org.example.dto.requestdto.PasswordChangeRequestDTO;
 import org.example.dto.requestdto.ProfileUpdateRequestDTO;
 import org.example.dto.requestdto.UpdateUserRequestDTO;
 import org.example.dto.responsedto.UserResponseDTO;
+import org.example.exception.ProviderAccessDeniedException;
 import org.example.exception.ProviderConflictException;
 import org.example.exception.ProviderNotFoundException;
 import org.example.exception.ProviderTokenException;
@@ -19,6 +20,7 @@ import org.example.service.EmailTokenService;
 import org.example.service.RoleService;
 import org.example.service.StatusService;
 import org.example.service.UserService;
+import org.example.util.RecipientCurrentClientUtil;
 import org.example.validator.uservalidator.UserRequestDTOValidator;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -300,6 +302,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(Integer id) {
+        if (id == RecipientCurrentClientUtil.getCurrentClientId()) {
+            throw new ProviderAccessDeniedException("Admin cannot delete his own account");
+        }
+
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ProviderNotFoundException(messageSource.getMessage("user.error.not_found.by_id",
                         new Object[]{id},
