@@ -52,7 +52,7 @@ public class UserServiceTest {
 
         userService.updateProfile(userId, requestDto);
 
-        verify(emailTokenService).sendConfirmationEmail(any(),
+        verify(emailTokenService).sendConfirmationEmail(eq(user),
                 eq(requestDto.getEmail()),
                 eq(requestDto.getUsername()),
                 eq(requestDto.getPhone()));

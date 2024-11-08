@@ -177,10 +177,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                 userService.getUserEntityById(userId),
                 planService.getPlanEntityById(planId));
 
-        return Optional.of(subscription)
-                .map(subscriptionRepository::save)
-                .map(subscriptionMapper::toSubscriptionResponseDTO)
-                .orElseThrow();
+        Subscription savedSubscription = subscriptionRepository.save(subscription);
+
+        return subscriptionMapper.toSubscriptionResponseDTO(savedSubscription);
+
+//        return Optional.of(subscription)
+//                .map(subscriptionRepository::save)
+//                .map(subscriptionMapper::toSubscriptionResponseDTO)
+//                .orElseThrow();
     }
 
     /**

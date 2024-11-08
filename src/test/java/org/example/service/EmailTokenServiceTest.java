@@ -6,6 +6,7 @@ import org.example.model.Status;
 import org.example.model.User;
 import org.example.repository.EmailTokenRepository;
 import org.example.service.impl.EmailTokenServiceImpl;
+import org.example.util.ProviderConstantUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -14,12 +15,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,9 +35,6 @@ public class EmailTokenServiceTest {
     @Mock
     private JavaMailSender javaMailSender;
 
-    @Mock
-    private static PasswordEncoder passwordEncoder;
-
     private static final User user = createUser();
 
     @Test
@@ -47,36 +44,42 @@ public class EmailTokenServiceTest {
         String newPhone = "+375298879322";
 
         EmailToken emailToken = EmailToken.builder()
-                .id(5)
                 .token(UUID.randomUUID().toString())
                 .email(newEmail)
                 .username(newUsername)
                 .phone(newPhone)
-                .expiryDate(LocalDateTime.now())
+                .expiryDate(LocalDateTime.now().plusMinutes(ProviderConstantUtil.ADDITIONAL_MINUTES))
                 .user(user)
                 .build();
 
-        when(emailTokenRepository.save(any(EmailToken.class))).thenReturn(emailToken);
+        ArgumentCaptor<EmailToken> tokenArgumentCaptor = ArgumentCaptor.forClass(EmailToken.class);
+
+        when(emailTokenRepository.save(tokenArgumentCaptor.capture())).thenReturn(emailToken);
 
         tokenService.sendConfirmationEmail(user, newEmail, newUsername, newPhone);
 
+        verify(emailTokenRepository).save(tokenArgumentCaptor.capture());
+
         ArgumentCaptor<SimpleMailMessage> argumentCaptor = ArgumentCaptor.forClass(SimpleMailMessage.class);
         verify(javaMailSender).send(argumentCaptor.capture());
+
+        SimpleMailMessage simpleMailMessage = argumentCaptor.getValue();
+        EmailToken expectedEmailToken = tokenArgumentCaptor.getValue();
+
+        assertNotNull(simpleMailMessage);
+        assertNotNull(expectedEmailToken);
     }
 
     private static User createUser() {
         Role role = new Role();
-        role.setId(2);
         role.setName("ROLE_CLIENT");
 
         Status status = new Status();
-        status.setId(1);
         status.setName("active");
 
         return User.builder()
-                .id(5)
                 .username("VladislavKolos")
-                .password(passwordEncoder != null ? passwordEncoder.encode("Vk704101") : null)
+                .password("Vk704101")
                 .email("vlad@gmail.com")
                 .phone("+375335678934")
                 .role(role)
