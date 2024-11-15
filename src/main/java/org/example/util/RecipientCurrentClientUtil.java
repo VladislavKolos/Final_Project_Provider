@@ -11,8 +11,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Slf4j
 public class RecipientCurrentClientUtil {
 
+    private RecipientCurrentClientUtil() {
+
+    }
+
     /**
      * Get the current client ID.
+     *
      * @return Current client ID.
      */
     public static int getCurrentClientId() {

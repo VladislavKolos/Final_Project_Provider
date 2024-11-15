@@ -4,6 +4,11 @@ package org.example.util;
  * Constant class for the project.
  */
 public class ProviderConstantUtil {
+
+    private ProviderConstantUtil() {
+
+    }
+
     public static final int USER_STATUS_ACTIVE = 1;
     public static final int USER_STATUS_INACTIVE = 2;
     public static final int USER_STATUS_BANNED = 3;
